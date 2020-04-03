@@ -6,21 +6,31 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.ArrayList;
 
+import vn.com.duan1.coffeemanagement.DAO.NguoiDungDAO;
+import vn.com.duan1.coffeemanagement.DataModel.NguoiDung;
 import vn.com.duan1.coffeemanagement.R;
+
+import static vn.com.duan1.coffeemanagement.MainActivity.idAfterLogin;
+import static vn.com.duan1.coffeemanagement.Staff_item.StaffManagementFragment.nhanViens;
+import static vn.com.duan1.coffeemanagement.Staff_item.StaffManagementFragment.quanLys;
 
 public class StaffFragment extends Fragment {
     RecyclerView rvStaff;
     FloatingActionButton fl;
-
+    NguoiDungDAO nguoiDungDAO;
 
     public StaffFragment() {
         // Required empty public constructor
@@ -30,63 +40,121 @@ public class StaffFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final View view=inflater.inflate(R.layout.fragment_staff, container, false);
-        fl=view.findViewById(R.id.addStaff);
-        rvStaff=view.findViewById(R.id.rvStaff);
-
-
-
-
-        fl.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder=new AlertDialog.Builder(view.getContext());
-                LayoutInflater inf=getLayoutInflater();
-                View viewdialog=inf.inflate(R.layout.dialog_add_staff,null);
-                builder.setView(viewdialog);
-
-
-
-                final Spinner spAccount=viewdialog.findViewById(R.id.spAccount);
-                final Spinner spLevel=viewdialog.findViewById(R.id.spLevel);
-                final EditText edtName=viewdialog.findViewById(R.id.edtName);
-                final EditText edtEmail=viewdialog.findViewById(R.id.edtEmail);
-                final EditText edtPhoneNumber=viewdialog.findViewById(R.id.edtPhoneNumber);
-                final EditText edtAddress=viewdialog.findViewById(R.id.edtAddress);
-
-                ArrayList<String> arrayLevel = new ArrayList<String>();
-                arrayLevel.add("Quản lý");
-                arrayLevel.add("Nhân viên");
-
-                ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(),android.R.layout.simple_spinner_item, arrayLevel);
-                spLevel.setAdapter(arrayAdapter);
-
-
-                builder.setPositiveButton("Thêm", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        String Name=edtName.getText().toString();
-                        String Email=edtEmail.getText().toString();
-                        String PhoneNumber=edtPhoneNumber.getText().toString();
-                        String Address=edtAddress.getText().toString();
-                        capnhatgiaodien();
-                        Toast.makeText(getActivity(), "Đã thêm", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-                builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                builder.show();
-            }
-        });
+        final View view = inflater.inflate(R.layout.fragment_staff, container, false);
+        fl = view.findViewById(R.id.addStaff);
+        nguoiDungDAO = new NguoiDungDAO(getContext());
+        if (idAfterLogin.contains("ql")) {
+            fl.setEnabled(true);
+            fl.setVisibility(View.VISIBLE);
+        } else {
+            fl.setEnabled(false);
+            fl.setVisibility(View.GONE);
+        }
+        rvStaff = view.findViewById(R.id.rvStaff);
+        if (fl.isEnabled()) {
+            fl.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    themTaiKhoanB1();
+                }
+            });
+        }
         return view;
     }
 
-    public void capnhatgiaodien(){}
+    public void capnhatgiaodien() {
+    }
+    String begin;
+    public void themTaiKhoanB1() {
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
+        LayoutInflater inf = getLayoutInflater();
+        View viewdialog1 = inf.inflate(R.layout.dialog_add_account_login, null);
+        builder1.setView(viewdialog1);
+        final Spinner spinner = viewdialog1.findViewById(R.id.spinnerChucVu);
+        final EditText edtSTT = viewdialog1.findViewById(R.id.edtSTT);
+        final EditText edtAddPassword = viewdialog1.findViewById(R.id.edtAddPassword);
+        ArrayList<String> chucVu = new ArrayList<>();
+        chucVu.add("Quản lý - ql");
+        chucVu.add("Nhân viên - nv");
+        ArrayAdapter arrayAdapter = new ArrayAdapter(viewdialog1.getContext(), android.R.layout.simple_spinner_item, chucVu);
+        spinner.setAdapter(arrayAdapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String chucVuNguoiDung = adapterView.getItemAtPosition(i).toString();
+                if (chucVuNguoiDung.contains("ql")) {
+                    begin = "ql";
+                    int size1 = quanLys.size();
+                    if (size1 < 9) {
+                        edtSTT.setText("0" + (size1 + 1));
+                    } else {
+                        edtSTT.setText((size1 + 1) + "");
+                    }
 
+                } else if (chucVuNguoiDung.contains("nv")) {
+                    begin = "nv";
+                    int size2 = nhanViens.size();
+                    if (size2 < 99) {
+                        if (size2 < 9) {
+                            edtSTT.setText("00" + (size2 + 1));
+                        } else {
+                            edtSTT.setText("0" + (size2 + 1));
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        builder1.setPositiveButton("Bước 2", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                String userID = "";
+                String password = edtAddPassword.getText().toString();
+
+                userID = begin + edtSTT.getText().toString();
+                NguoiDung nguoiDungMoi = new NguoiDung(userID, password);
+                themTaiKhoanB2(nguoiDungMoi);
+//                Toast.makeText(getActivity(), "Đã thêm", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        builder1.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder1.show();
+    }
+
+    public void themTaiKhoanB2(final NguoiDung nguoiDung) {
+        AlertDialog.Builder builder2 = new AlertDialog.Builder(getContext());
+        LayoutInflater inf = getLayoutInflater();
+        View viewdialog2 = inf.inflate(R.layout.dialog_add_staff, null);
+        builder2.setView(viewdialog2);
+        final EditText edtTen = viewdialog2.findViewById(R.id.edtTen);
+        final EditText edtCMND = viewdialog2.findViewById(R.id.edtCMND);
+        final EditText edtsdt = viewdialog2.findViewById(R.id.edtsdt);
+        builder2.setPositiveButton("Hoàn tất", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                nguoiDung.setTen(edtTen.getText().toString());
+                nguoiDung.setCMND(edtCMND.getText().toString());
+                nguoiDung.setSdt(edtsdt.getText().toString());
+                nguoiDungDAO.inserNguoiDung(nguoiDung);
+            }
+        }).setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
+        builder2.show();
+    }
 }

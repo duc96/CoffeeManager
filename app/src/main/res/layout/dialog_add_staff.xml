@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <TextView
@@ -13,54 +13,52 @@
         android:gravity="center"
         android:paddingBottom="5dp"
         android:paddingTop="5dp"
-        android:text="THÊM NHÂN VIÊN"
+        android:text="THÊM NGƯỜI DÙNG - BƯỚC 2"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
         android:textColor="#ffffff"
         android:textSize="20sp"
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/edtName"
+        android:id="@+id/edtTen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Tên"
-        android:inputType="textPersonName" />
+        android:inputType="text" />
 
     <EditText
-        android:id="@+id/edtEmail"
+        android:id="@+id/edtCMND"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Email"
-        android:inputType="textPersonName" />
-
-
+        android:hint="CMND/Căn cước"
+        android:inputType="number" />
 
     <EditText
-        android:id="@+id/edtPhoneNumber"
+        android:id="@+id/edtsdt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Số điện thoại"
-        android:inputType="textPersonName" />
+        android:inputType="phone" />
 
-    <EditText
-        android:id="@+id/edtAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Địa chỉ"
-        android:inputType="textPersonName" />
+<!--    <EditText-->
+<!--        android:id="@+id/edtAddress"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:ems="10"-->
+<!--        android:hint="Địa chỉ"-->
+<!--        android:inputType="textPersonName" />-->
 
-    <Spinner
-        android:id="@+id/spAccount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"></Spinner>
+<!--    <Spinner-->
+<!--        android:id="@+id/spAccount"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"></Spinner>-->
 
-    <Spinner
-        android:id="@+id/spLevel"
-        android:layout_marginTop="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"></Spinner>
+<!--    <Spinner-->
+<!--        android:id="@+id/spLevel"-->
+<!--        android:layout_marginTop="5dp"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"></Spinner>-->
 </LinearLayout>

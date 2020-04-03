@@ -24,11 +24,19 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tv_idAccount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="4dp"
+                android:hint="Tên đăng nhập"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
+            <TextView
                 android:id="@+id/tv_StaffName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="4dp"
-                android:text="Tên"
+                android:hint="Tên"
                 android:textColor="@android:color/black"
                 android:textSize="20sp" />
 
@@ -37,7 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="4dp"
-                android:text="Email"
+                android:hint="CMND"
                 android:textColor="@android:color/black"
                 android:textSize="20sp" />
 
@@ -46,35 +54,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="4dp"
-                android:text="Số điện thoại"
+                android:hint="Số điện thoại"
                 android:textColor="@android:color/black"
                 android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/tv_StaffAddress"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="4dp"
-                android:text="Địa chỉ"
-                android:textColor="@android:color/black"
-                android:textSize="20sp" />
-            <TextView
-            android:id="@+id/tv_StaffTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="4dp"
-            android:text="Chức vụ"
-            android:textColor="@android:color/black"
-            android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/tv_idAccount"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="4dp"
-                android:text="Tên đăng nhập"
-                android:textColor="@android:color/black"
-                android:textSize="20sp" />
 
         </LinearLayout>
 

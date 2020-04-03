@@ -5,7 +5,7 @@
         android:id="@+id/staff"
         android:enabled="true"
         android:icon="@drawable/ic_account"
-        android:title="Nhân Viên"/>
+        android:title="Người dùng"/>
     <item
         android:id="@+id/menu"
         android:enabled="true"

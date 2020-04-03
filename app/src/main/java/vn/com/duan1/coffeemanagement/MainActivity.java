@@ -1,6 +1,7 @@
 package vn.com.duan1.coffeemanagement;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,12 +13,18 @@ import vn.com.duan1.coffeemanagement.Staff_item.StaffManagementFragment;
 
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView bnv;
-
+    public static String idAfterLogin;
+    public static String passwordAfterLogin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        Bundle b = getIntent().getBundleExtra("loginInfo");
+        if(b!=null){
+            idAfterLogin = b.getString("id");
+            passwordAfterLogin = b.getString("password");
+            Log.d("accountInfo", idAfterLogin+passwordAfterLogin);
+        }
         bnv = findViewById(R.id.bnv);
 
         if (savedInstanceState == null) {
