@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "392787963093",
+    "firebase_url": "https://quanlycoffee.firebaseio.com",
+    "project_id": "quanlycoffee",
+    "storage_bucket": "quanlycoffee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:392787963093:android:9e3a204f4eec976a14865c",
+        "android_client_info": {
+          "package_name": "vn.com.duan1.coffeemanagement"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "392787963093-pqiqnpsmpm6g6fiaanui0jmbmm48idb2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLZ6cL-ZQNwdf7RJCxw2SyLdE_8q9-o2U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "392787963093-pqiqnpsmpm6g6fiaanui0jmbmm48idb2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
