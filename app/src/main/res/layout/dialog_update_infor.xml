@@ -28,12 +28,12 @@
         android:inputType="textPersonName" />
 
     <EditText
-        android:id="@+id/edtEmailUpdate"
+        android:id="@+id/edCMNDUpdate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Email"
-        android:inputType="textPersonName" />
+        android:hint="CMND"
+        android:inputType="number" />
 
 
 
@@ -43,14 +43,6 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Số điện thoại"
-        android:inputType="textPersonName" />
-
-    <EditText
-        android:id="@+id/edtAddressUpdate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Địa chỉ"
-        android:inputType="textPersonName" />
+        android:inputType="number" />
 
 </LinearLayout>

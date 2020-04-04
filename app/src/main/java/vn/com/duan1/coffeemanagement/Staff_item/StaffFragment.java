@@ -3,6 +3,7 @@ package vn.com.duan1.coffeemanagement.Staff_item;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,12 +14,14 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
+import vn.com.duan1.coffeemanagement.Adapter.NguoiDungAdapter;
 import vn.com.duan1.coffeemanagement.DAO.NguoiDungDAO;
 import vn.com.duan1.coffeemanagement.DataModel.NguoiDung;
 import vn.com.duan1.coffeemanagement.R;
@@ -33,7 +36,7 @@ public class StaffFragment extends Fragment {
     RecyclerView rvStaff;
     FloatingActionButton fl;
     NguoiDungDAO nguoiDungDAO;
-
+    NguoiDungAdapter nguoiDungAdapter;
     public StaffFragment() {
         // Required empty public constructor
     }
@@ -44,6 +47,11 @@ public class StaffFragment extends Fragment {
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_staff, container, false);
         fl = view.findViewById(R.id.addStaff);
+        rvStaff = view.findViewById(R.id.rvStaff);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getRootView().getContext());
+        rvStaff.setLayoutManager(linearLayoutManager);
+        nguoiDungAdapter = new NguoiDungAdapter(view.getRootView().getContext(),nhanViens);
+        rvStaff.setAdapter(nguoiDungAdapter);
         nguoiDungDAO = new NguoiDungDAO(getContext());
         if (idAfterLogin.contains("ql")) {
             fl.setEnabled(true);
@@ -52,7 +60,7 @@ public class StaffFragment extends Fragment {
             fl.setEnabled(false);
             fl.setVisibility(View.GONE);
         }
-        rvStaff = view.findViewById(R.id.rvStaff);
+
         if (fl.isEnabled()) {
             fl.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -118,14 +126,19 @@ public class StaffFragment extends Fragment {
                 String password = edtAddPassword.getText().toString();
 
                 userID = begin + edtSTT.getText().toString();
-                NguoiDung nguoiDungMoi = new NguoiDung(userID, password);
-                themTaiKhoanB2(nguoiDungMoi);
-                if (flagQL == 1 && flagNV == 0) {
-                    sttNhanVien--;
-                } else if (flagQL == 0 && flagNV == 1) {
+                if(TextUtils.isEmpty(password)){
+                    Toast.makeText(getContext(), "Mật khẩu không được trống!", Toast.LENGTH_SHORT).show();
                     sttQuanLy--;
+                    sttNhanVien--;
+                }else {
+                    NguoiDung nguoiDungMoi = new NguoiDung(userID, password);
+                    themTaiKhoanB2(nguoiDungMoi);
+                    if (flagQL == 1 && flagNV == 0) {
+                        sttNhanVien--;
+                    } else if (flagQL == 0 && flagNV == 1) {
+                        sttQuanLy--;
+                    }
                 }
-//                Toast.makeText(getActivity(), "Đã thêm", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -155,6 +168,7 @@ public class StaffFragment extends Fragment {
                 nguoiDung.setCMND(edtCMND.getText().toString());
                 nguoiDung.setSdt(edtsdt.getText().toString());
                 nguoiDungDAO.inserNguoiDung(nguoiDung);
+                nguoiDungAdapter.notifyDataSetChanged();
             }
         }).setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
             @Override

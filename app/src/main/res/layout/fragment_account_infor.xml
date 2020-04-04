@@ -13,89 +13,124 @@
         android:layout_height="50dp"
         android:background="@drawable/bg2"
         android:gravity="center"
-        android:paddingBottom="5dp"
         android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         android:text="THÔNG TIN TÀI KHOẢN"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
         android:textColor="#ffffff"
         android:textSize="20sp"
         android:textStyle="bold" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="10"
+        android:layout_margin="5dp"
+        android:orientation="horizontal">
+
         <TextView
             android:id="@+id/tvName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:text="Tên: "/>
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="match_parent"
+            android:text="Tên: "
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
+        <EditText
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:id="@+id/et1"
+            android:layout_width="0dp"
+            android:layout_weight="8"
+            android:layout_height="match_parent"
+            android:enabled="false"
+            android:hint="" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="10"
+        android:layout_margin="5dp"
+        android:orientation="horizontal">
         <TextView
             android:id="@+id/tvEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:text="Email: "/>
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="match_parent"
+            android:text="CMND: "
+            android:textSize="20sp"
+            android:textStyle="bold" />
+        <EditText
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:id="@+id/et2"
+            android:layout_width="0dp"
+            android:layout_weight="8"
+            android:layout_height="match_parent"
+            android:enabled="false"
+            android:hint="" />
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/tvPhone"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:text="Số điện thoại: "/>
-
-    <TextView
-        android:id="@+id/tvAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:text="Địa chỉ: "/>
-
+        android:layout_margin="5dp"
+        android:weightSum="10"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/tvPhone"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="match_parent"
+            android:text="SDT: "
+            android:textSize="20sp"
+            android:textStyle="bold" />
+        <EditText
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:id="@+id/et3"
+            android:layout_width="0dp"
+            android:layout_weight="8"
+            android:layout_height="match_parent"
+            android:enabled="false"
+            android:hint="" />
+    </LinearLayout>
     <Button
         android:id="@+id/btnUpdateInfor"
         android:layout_width="wrap_content"
         android:layout_height="35dp"
-        android:layout_marginTop="30dp"
         android:layout_marginLeft="15dp"
+        android:layout_marginTop="30dp"
         android:layout_marginRight="15dp"
-        android:textColor="#ffffff"
-        android:textSize="20sp"
         android:background="@drawable/button_login"
-        android:text="Cập nhật thông tin" />
+        android:text="Cập nhật thông tin"
+        android:textColor="#ffffff"
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/btnChangePassword"
         android:layout_width="wrap_content"
         android:layout_height="35dp"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="15dp"
-        android:textColor="#ffffff"
-        android:textSize="20sp"
         android:background="@drawable/button_login"
-        android:text="Đổi mật khẩu" />
+        android:text="Đổi mật khẩu"
+        android:textColor="#ffffff"
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/btnLogout"
         android:layout_width="wrap_content"
         android:layout_height="35dp"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="15dp"
-        android:textColor="#ffffff"
-        android:textSize="20sp"
         android:background="@drawable/button_login"
-        android:text="Đăng xuất" />
+        android:text="Đăng xuất"
+        android:textColor="#ffffff"
+        android:textSize="20sp" />
 
 
 </LinearLayout>

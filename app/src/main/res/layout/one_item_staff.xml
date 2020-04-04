@@ -27,37 +27,38 @@
                 android:id="@+id/tv_idAccount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="4dp"
                 android:hint="Tên đăng nhập"
+                android:paddingLeft="4dp"
                 android:textColor="@android:color/black"
                 android:textSize="20sp" />
             <TextView
                 android:id="@+id/tv_StaffName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="4dp"
                 android:hint="Tên"
+                android:paddingLeft="4dp"
                 android:textColor="@android:color/black"
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/tv_StaffEmail"
+                android:id="@+id/tv_CMND"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="4dp"
                 android:hint="CMND"
+                android:paddingLeft="4dp"
                 android:textColor="@android:color/black"
                 android:textSize="20sp" />
+
+
 
             <TextView
                 android:id="@+id/tv_StaffPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="4dp"
                 android:hint="Số điện thoại"
+                android:paddingLeft="4dp"
                 android:textColor="@android:color/black"
                 android:textSize="20sp" />
-
 
 
         </LinearLayout>

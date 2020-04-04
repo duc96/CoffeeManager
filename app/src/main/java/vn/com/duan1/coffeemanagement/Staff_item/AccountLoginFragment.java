@@ -15,12 +15,14 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
+import vn.com.duan1.coffeemanagement.Adapter.NguoiDungAdapter;
 import vn.com.duan1.coffeemanagement.DAO.NguoiDungDAO;
 import vn.com.duan1.coffeemanagement.DataModel.NguoiDung;
 import vn.com.duan1.coffeemanagement.R;
@@ -35,7 +37,7 @@ public class AccountLoginFragment extends Fragment {
     RecyclerView rvAccountManager;
     FloatingActionButton fl;
     NguoiDungDAO nguoiDungDAO;
-
+    NguoiDungAdapter nguoiDungAdapter;
     public AccountLoginFragment() {
         // Required empty public constructor
     }
@@ -45,9 +47,14 @@ public class AccountLoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_account_login, null);
-        Log.d("Kiểm tra", "push-pull");
+        rvAccountManager = view.findViewById(R.id.rvAccountManager);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getRootView().getContext());
+        rvAccountManager.setLayoutManager(linearLayoutManager);
+        nguoiDungAdapter = new NguoiDungAdapter(view.getRootView().getContext(),quanLys);
+        rvAccountManager.setAdapter(nguoiDungAdapter);
         fl = view.findViewById(R.id.addStaffAcount);
         nguoiDungDAO = new NguoiDungDAO(getContext());
+
         if (idAfterLogin.contains("ql")) {
             fl.setEnabled(true);
             fl.setVisibility(View.VISIBLE);
@@ -55,7 +62,7 @@ public class AccountLoginFragment extends Fragment {
             fl.setEnabled(false);
             fl.setVisibility(View.GONE);
         }
-        rvAccountManager = view.findViewById(R.id.rvAccountManager);
+
         capnhatgiaodien();
         if (fl.isEnabled()) {
             fl.setOnClickListener(new View.OnClickListener() {
@@ -124,7 +131,7 @@ public class AccountLoginFragment extends Fragment {
                 userID = begin + edtSTT.getText().toString();
 
                 if(TextUtils.isEmpty(password)){
-                    Toast.makeText(getContext(), "Passowrd is empty. Try again!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Mật khẩu không được trống!", Toast.LENGTH_SHORT).show();
                     sttQuanLy--;
                     sttNhanVien--;
                 }else {
@@ -136,8 +143,6 @@ public class AccountLoginFragment extends Fragment {
                         sttQuanLy--;
                     }
                 }
-
-//                Toast.makeText(getActivity(), "Đã thêm", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -167,6 +172,7 @@ public class AccountLoginFragment extends Fragment {
                 nguoiDung.setCMND(edtCMND.getText().toString());
                 nguoiDung.setSdt(edtsdt.getText().toString());
                 nguoiDungDAO.inserNguoiDung(nguoiDung);
+                nguoiDungAdapter.notifyDataSetChanged();
             }
         }).setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
             @Override
