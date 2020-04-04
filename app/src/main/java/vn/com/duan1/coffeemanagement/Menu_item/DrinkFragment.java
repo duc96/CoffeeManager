@@ -3,6 +3,7 @@ package vn.com.duan1.coffeemanagement.Menu_item;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,9 +36,15 @@ public class DrinkFragment extends Fragment {
         flCart=view.findViewById(R.id.cart);
         rvDrink=view.findViewById(R.id.rvDrink);
 
+
         if(idAfterLogin.substring(0,1).equals("ql")){
             System.out.println("dang dang nhap voi chuc vu quan ly");
         }
+
+        Log.d("123","123");
+
+
+
 
         flAdd.setOnClickListener(new View.OnClickListener() {
             @Override
