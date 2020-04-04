@@ -15,6 +15,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import vn.com.duan1.coffeemanagement.R;
 
+import static vn.com.duan1.coffeemanagement.MainActivity.idAfterLogin;
+
 public class DrinkFragment extends Fragment {
     RecyclerView rvDrink;
     FloatingActionButton flAdd, flCart;
@@ -33,8 +35,9 @@ public class DrinkFragment extends Fragment {
         flCart=view.findViewById(R.id.cart);
         rvDrink=view.findViewById(R.id.rvDrink);
 
-
-
+        if(idAfterLogin.substring(0,1).equals("ql")){
+            System.out.println("dang dang nhap voi chuc vu quan ly");
+        }
 
         flAdd.setOnClickListener(new View.OnClickListener() {
             @Override

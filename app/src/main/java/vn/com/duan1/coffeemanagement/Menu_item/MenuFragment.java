@@ -37,6 +37,7 @@ public class MenuFragment extends Fragment {
         tabLayoutMenu.addTab(tabLayoutMenu.newTab().setText("Khác"));
 
         viewPagerMenu.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayoutMenu));
+
         tabLayoutMenu.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
