@@ -26,9 +26,9 @@
             <ImageView
                 android:id="@+id/iv_ItemPhoto"
                 android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_height="109dp"
                 android:layout_marginLeft="120dp"
-                android:src="@drawable/ic_camera"/>
+                android:src="@drawable/ic_camera" />
 
             <TextView
                 android:id="@+id/tv_ItemName"
