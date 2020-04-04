@@ -42,7 +42,7 @@ public class AccountLoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_account_login, null);
-
+        Log.d("Kiểm tra", "push-pull");
         fl = view.findViewById(R.id.addStaffAcount);
         nguoiDungDAO = new NguoiDungDAO(getContext());
         if (idAfterLogin.contains("ql")) {
