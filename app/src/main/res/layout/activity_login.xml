@@ -47,7 +47,7 @@
             android:layout_marginTop="190dp"
             android:ems="15"
             android:hint="Tên đăng nhập"
-            android:text="ql01"
+            android:text="ql1"
             android:inputType="textPersonName" />
 
         <EditText
@@ -65,7 +65,7 @@
             android:drawableLeft="@drawable/ic_pass"
             android:ems="15"
             android:hint="Mật khẩu"
-            android:text="ql01"
+            android:text="ql1"
             android:inputType="textPassword" />
 
         <ImageView

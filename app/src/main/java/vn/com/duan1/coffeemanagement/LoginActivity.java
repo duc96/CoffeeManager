@@ -80,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void addFirstInfo() {
-//        NguoiDung nguoiDung1 = new NguoiDung("ql01", "ql01");
+//        NguoiDung nguoiDung1 = new NguoiDung("ql1", "ql1");
 //        nguoiDungDAO.inserNguoiDung(nguoiDung1);
         nguoiDungs = nguoiDungDAO.getUsers();
 //        NguoiDung nguoiDung2 = new NguoiDung("ql02", "ql02");

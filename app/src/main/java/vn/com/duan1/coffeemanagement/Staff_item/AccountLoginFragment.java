@@ -3,6 +3,7 @@ package vn.com.duan1.coffeemanagement.Staff_item;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +28,8 @@ import vn.com.duan1.coffeemanagement.R;
 import static vn.com.duan1.coffeemanagement.MainActivity.idAfterLogin;
 import static vn.com.duan1.coffeemanagement.Staff_item.StaffManagementFragment.nhanViens;
 import static vn.com.duan1.coffeemanagement.Staff_item.StaffManagementFragment.quanLys;
+import static vn.com.duan1.coffeemanagement.Staff_item.StaffManagementFragment.sttNhanVien;
+import static vn.com.duan1.coffeemanagement.Staff_item.StaffManagementFragment.sttQuanLy;
 
 public class AccountLoginFragment extends Fragment {
     RecyclerView rvAccountManager;
@@ -69,7 +72,12 @@ public class AccountLoginFragment extends Fragment {
     public void capnhatgiaodien() {
     }
     String begin;
+    int flagQL = 0;
+    int flagNV = 0;
+
     public void themTaiKhoanB1() {
+        sttQuanLy++;
+        sttNhanVien++;
         AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
         LayoutInflater inf = getLayoutInflater();
         View viewdialog1 = inf.inflate(R.layout.dialog_add_account_login, null);
@@ -87,24 +95,16 @@ public class AccountLoginFragment extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String chucVuNguoiDung = adapterView.getItemAtPosition(i).toString();
                 if (chucVuNguoiDung.contains("ql")) {
+                    flagQL = 1;
+                    flagNV = 0;
                     begin = "ql";
-                    int size1 = quanLys.size();
-                    if (size1 < 9) {
-                        edtSTT.setText("0" + (size1 + 1));
-                    } else {
-                        edtSTT.setText((size1 + 1) + "");
-                    }
+                    edtSTT.setText(sttQuanLy + "");
 
                 } else if (chucVuNguoiDung.contains("nv")) {
+                    flagQL = 0;
+                    flagNV = 1;
                     begin = "nv";
-                    int size2 = nhanViens.size();
-                    if (size2 < 99) {
-                        if (size2 < 9) {
-                            edtSTT.setText("00" + (size2 + 1));
-                        } else {
-                            edtSTT.setText("0" + (size2 + 1));
-                        }
-                    }
+                    edtSTT.setText(sttNhanVien + "");
                 }
             }
 
@@ -122,8 +122,21 @@ public class AccountLoginFragment extends Fragment {
                 String password = edtAddPassword.getText().toString();
 
                 userID = begin + edtSTT.getText().toString();
-                NguoiDung nguoiDungMoi = new NguoiDung(userID, password);
-                themTaiKhoanB2(nguoiDungMoi);
+
+                if(TextUtils.isEmpty(password)){
+                    Toast.makeText(getContext(), "Passowrd is empty. Try again!", Toast.LENGTH_SHORT).show();
+                    sttQuanLy--;
+                    sttNhanVien--;
+                }else {
+                    NguoiDung nguoiDungMoi = new NguoiDung(userID, password);
+                    themTaiKhoanB2(nguoiDungMoi);
+                    if (flagQL == 1 && flagNV == 0) {
+                        sttNhanVien--;
+                    } else if (flagQL == 0 && flagNV == 1) {
+                        sttQuanLy--;
+                    }
+                }
+
 //                Toast.makeText(getActivity(), "Đã thêm", Toast.LENGTH_SHORT).show();
             }
         });
@@ -131,6 +144,8 @@ public class AccountLoginFragment extends Fragment {
         builder1.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                sttQuanLy--;
+                sttNhanVien--;
                 dialog.cancel();
             }
         });
