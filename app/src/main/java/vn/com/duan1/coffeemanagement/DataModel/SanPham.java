@@ -3,19 +3,36 @@ package vn.com.duan1.coffeemanagement.DataModel;
 public class SanPham {
     private String maSP;
     private String maLoai;
+    private String hinhSP;
     private String tenSP;
     private int giaSP;
-    private int soLuongBan;
+    private  String mota;
 
     public SanPham() {
     }
 
-    public SanPham(String maSP, String maLoai, String tenSP, int giaSP, int soLuongBan) {
+    public SanPham(String maSP, String maLoai, String tenSP, int giaSP, String mota) {
         this.maSP = maSP;
         this.maLoai = maLoai;
         this.tenSP = tenSP;
         this.giaSP = giaSP;
-        this.soLuongBan = soLuongBan;
+        this.mota = mota;
+    }
+
+    public SanPham(String maSP, String maLoai, String hinhSP, String tenSP, int giaSP) {
+        this.maSP = maSP;
+        this.maLoai = maLoai;
+        this.hinhSP = hinhSP;
+        this.tenSP = tenSP;
+        this.giaSP = giaSP;
+    }
+
+    public String getHinhSP() {
+        return hinhSP;
+    }
+
+    public void setHinhSP(String hinhSP) {
+        this.hinhSP = hinhSP;
     }
 
     public String getMaSP() {
@@ -50,12 +67,12 @@ public class SanPham {
         this.giaSP = giaSP;
     }
 
-    public int getSoLuongBan() {
-        return soLuongBan;
+    public String getMota() {
+        return mota;
     }
 
-    public void setSoLuongBan(int soLuongBan) {
-        this.soLuongBan = soLuongBan;
+    public void setMota(String mota) {
+        this.mota = mota;
     }
 
     @Override
@@ -65,7 +82,6 @@ public class SanPham {
                 ", maLoai='" + maLoai + '\'' +
                 ", tenSP='" + tenSP + '\'' +
                 ", giaSP=" + giaSP +
-                ", soLuongBan=" + soLuongBan +
                 '}';
     }
 }
