@@ -6,8 +6,17 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.ArrayList;
+
 import vn.com.duan1.coffeemanagement.Account_item.AccountInforFragment;
 import vn.com.duan1.coffeemanagement.Bill_item.BillFragment;
+import vn.com.duan1.coffeemanagement.DAO.HoaDonChiTietDAO;
+import vn.com.duan1.coffeemanagement.DAO.HoaDonDAO;
+import vn.com.duan1.coffeemanagement.DAO.SanPhamDAO;
+import vn.com.duan1.coffeemanagement.DataModel.HoaDon;
+import vn.com.duan1.coffeemanagement.DataModel.HoaDonChiTiet;
+import vn.com.duan1.coffeemanagement.DataModel.SanPham;
 import vn.com.duan1.coffeemanagement.Menu_item.MenuFragment;
 import vn.com.duan1.coffeemanagement.Staff_item.StaffManagementFragment;
 
@@ -15,6 +24,9 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView bnv;
     public static String idAfterLogin;
     public static String passwordAfterLogin;
+    public static ArrayList<HoaDonChiTiet> listHDCTs = new ArrayList<>();
+    public static ArrayList<HoaDon> hoaDons = new ArrayList<>();
+    public static ArrayList<SanPham> sanPhamss = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +62,39 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+
+//        HoaDonDAO hoaDonDAO = new HoaDonDAO(this);
+//        HoaDon hoaDon = new HoaDon("hd01","06/04/2020","Chưa thanh toán","nv1");
+//        HoaDon hoaDon1 = new HoaDon("hd02", "07/04/2020","Đã thanh toán","ql1");
+//        hoaDonDAO.insert(hoaDon);
+//        hoaDonDAO.insert(hoaDon1);
+//        HoaDonChiTietDAO hoaDonChiTietDAO = new HoaDonChiTietDAO(this);
+//        HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet("hdct01", "hd01", "sp1", 4 );
+//        HoaDonChiTiet hoaDonChiTiet1 = new HoaDonChiTiet("hdct02", "hd01", "sp2", 3 );
+//        HoaDonChiTiet hoaDonChiTiet2 = new HoaDonChiTiet("hdct01", "hd02", "sp5", 1 );
+//        HoaDonChiTiet hoaDonChiTiet3 = new HoaDonChiTiet("hdct02", "hd02", "sp3", 2 );
+//        hoaDonChiTietDAO.insert(hoaDonChiTiet);
+//        hoaDonChiTietDAO.insert(hoaDonChiTiet1);
+//        hoaDonChiTietDAO.insert(hoaDonChiTiet2);
+//        hoaDonChiTietDAO.insert(hoaDonChiTiet3);
+        getHDCT();
+        getHoaDon();
+        getSanPham();
+    }
+
+    public void getSanPham(){
+        SanPhamDAO sanPhamDAO = new SanPhamDAO(this);
+        sanPhamss = sanPhamDAO.getAll1();
+    }
+
+    public void getHDCT(){
+        HoaDonChiTietDAO hoaDonChiTietDAO = new HoaDonChiTietDAO(this);
+        listHDCTs = (ArrayList<HoaDonChiTiet>) hoaDonChiTietDAO.getAll();
+    }
+
+    public void getHoaDon(){
+        HoaDonDAO hoaDonDAO = new HoaDonDAO(this);
+        hoaDons = (ArrayList<HoaDon>) hoaDonDAO.getAll1();
     }
 
     @Override

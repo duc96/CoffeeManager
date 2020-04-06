@@ -4,13 +4,23 @@ public class HoaDon {
     private String maHD;
     private String ngayXuat;
     private String trangThai;
+    private String nguoiLap;
 
     public HoaDon(){}
 
-    public HoaDon(String maHD, String ngayXuat, String trangThai) {
+    public HoaDon(String maHD, String ngayXuat, String trangThai, String nguoiLap) {
         this.maHD = maHD;
         this.ngayXuat = ngayXuat;
         this.trangThai = trangThai;
+        this.nguoiLap = nguoiLap;
+    }
+
+    public String getNguoiLap() {
+        return nguoiLap;
+    }
+
+    public void setNguoiLap(String nguoiLap) {
+        this.nguoiLap = nguoiLap;
     }
 
     public String getMaHD() {
@@ -43,6 +53,7 @@ public class HoaDon {
                 "maHD='" + maHD + '\'' +
                 ", ngayXuat='" + ngayXuat + '\'' +
                 ", trangThai='" + trangThai + '\'' +
+                ", nguoiLap='" + nguoiLap + '\'' +
                 '}';
     }
 }

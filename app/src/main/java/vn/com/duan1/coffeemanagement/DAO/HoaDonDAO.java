@@ -54,7 +54,7 @@ public class HoaDonDAO {
 
                     list.add(item);
                 }
-               // fr.capnhatLV();
+                fr.capnhatLV();
             }
 
             @Override

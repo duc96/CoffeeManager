@@ -43,7 +43,7 @@ public class SanPhamDAO {
                 for(DataSnapshot data:dataSnapshot.getChildren()){
                     SanPham sanPham = data.getValue(SanPham.class);
                     sanPhams.add(sanPham);
-                    drinkFragment.capnhatgiaodien();
+
                 }
             }
 
@@ -67,6 +67,7 @@ public class SanPhamDAO {
                     sanPhams.add(sanPham);
 
                 }
+        //        drinkFragment.capnhatgiaodien();
             }
 
             @Override

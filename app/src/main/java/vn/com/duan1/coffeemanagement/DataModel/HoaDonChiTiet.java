@@ -15,6 +15,7 @@ public class HoaDonChiTiet {
         this.soLuongMua = soLuongMua;
     }
 
+
     public String getMaHDCT() {
         return maHDCT;
     }

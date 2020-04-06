@@ -12,23 +12,24 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import vn.com.duan1.coffeemanagement.DataModel.SanPham;
+import vn.com.duan1.coffeemanagement.Menu_item.DrinkFragment;
 import vn.com.duan1.coffeemanagement.R;
 
 public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamViewHolder> {
 
     private ArrayList<SanPham> sanPhams;
     private Context context;
-    private LayoutInflater layoutInflater;
+    DrinkFragment fr;
 
-    public SanPhamAdapter(ArrayList<SanPham> sanPhams, Context context) {
+    public SanPhamAdapter(ArrayList<SanPham> sanPhams, Context context, DrinkFragment fr) {
         this.sanPhams = sanPhams;
         this.context = context;
-        layoutInflater = LayoutInflater.from(context);
+        this.fr = fr;
     }
 
     @Override
     public SanPhamViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = layoutInflater.inflate(R.layout.one_item_menu,parent,false);
+        View itemView = LayoutInflater.from(context).inflate(R.layout.one_item_menu,parent,false);
 
         return new SanPhamViewHolder(itemView);
     }

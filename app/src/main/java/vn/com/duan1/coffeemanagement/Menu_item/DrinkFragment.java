@@ -24,12 +24,14 @@ import vn.com.duan1.coffeemanagement.R;
 
 import static vn.com.duan1.coffeemanagement.MainActivity.idAfterLogin;
 
+import static vn.com.duan1.coffeemanagement.MainActivity.sanPhamss;
+
 public class DrinkFragment extends Fragment {
     RecyclerView rvDrink;
     FloatingActionButton flAdd, flCart;
     final String loai = "drink";
     SanPhamDAO sanPhamDAO;
-    ArrayList<SanPham> sanPhams;
+   // ArrayList<SanPham> sanPhams;
     SanPhamAdapter sanPhamAdapter;
 
     public DrinkFragment() {
@@ -44,16 +46,14 @@ public class DrinkFragment extends Fragment {
         flCart=view.findViewById(R.id.cart);
         rvDrink=view.findViewById(R.id.rvDrink);
 
-        sanPhamDAO = new SanPhamDAO(getActivity());
-        sanPhams = sanPhamDAO.getAll();
-        System.out.println(sanPhams);
-
-        sanPhamAdapter = new SanPhamAdapter(sanPhams,getActivity());
-        rvDrink.setAdapter(sanPhamAdapter);
-
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
+           sanPhamDAO = new SanPhamDAO(getActivity());
+           //sanPhams = sanPhamDAO.getAll();
+        //System.out.println(sanPhams);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         rvDrink.setLayoutManager(linearLayoutManager);
+
+        sanPhamAdapter = new SanPhamAdapter(sanPhamss,getContext(), this);
+        rvDrink.setAdapter(sanPhamAdapter);
 
 
         if(idAfterLogin.substring(0,2).equals("ql")){
@@ -82,10 +82,10 @@ public class DrinkFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //image input here
-                        int size = sanPhams.size();
+                        int size = sanPhamss.size();
                         String maSP = "NU" + size;
-                        for(int i = 0; i < sanPhams.size(); i++){
-                            if(sanPhams.get(i).getMaSP().equals(maSP)){
+                        for(int i = 0; i < sanPhamss.size(); i++){
+                            if(sanPhamss.get(i).getMaSP().equals(maSP)){
                                 size ++;
                                 maSP = "NU" + size;
                             }
@@ -108,6 +108,7 @@ public class DrinkFragment extends Fragment {
                     }
                 });
                 builder.show();
+                capnhatgiaodien();
             }
         });
 
@@ -142,7 +143,9 @@ public class DrinkFragment extends Fragment {
     }
 
     public void capnhatgiaodien(){
+        sanPhamAdapter.notifyItemInserted(sanPhamss.size());
         sanPhamAdapter.notifyDataSetChanged();
+
     }
 
 }
