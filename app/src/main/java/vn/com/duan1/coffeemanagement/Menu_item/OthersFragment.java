@@ -15,15 +15,15 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import vn.com.duan1.coffeemanagement.R;
 
+import static vn.com.duan1.coffeemanagement.MainActivity.idAfterLogin;
+
 public class OthersFragment extends Fragment {
     RecyclerView rvOthers;
     FloatingActionButton flAddOthers, flCart;
 
-
     public OthersFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,8 +33,13 @@ public class OthersFragment extends Fragment {
         flCart=view.findViewById(R.id.cart);
         rvOthers=view.findViewById(R.id.rvOthers);
 
-
-
+        if(idAfterLogin.substring(0,2).equals("ql")){
+            System.out.println("dang dang nhap voi chuc vu quan ly");
+        }else{
+            System.out.println("dang nhap voi chuc nang nhan vien");
+            flAddOthers.setEnabled(false);
+            flAddOthers.setVisibility(View.GONE);
+        }
 
         flAddOthers.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,13 +49,10 @@ public class OthersFragment extends Fragment {
                 View viewdialog=inf.inflate(R.layout.dialog_add_menu,null);
                 builder.setView(viewdialog);
 
-
-
                 final ImageView ivPhoto=viewdialog.findViewById(R.id.ivPhoto);
                 final EditText edtItemName=viewdialog.findViewById(R.id.edtItemName);
                 final EditText edtItemPrice=viewdialog.findViewById(R.id.edtItemPrice);
                 final EditText edtItemDescribe=viewdialog.findViewById(R.id.edtItemDescribe);
-
 
                 builder.setPositiveButton("Thêm", new DialogInterface.OnClickListener() {
                     @Override
