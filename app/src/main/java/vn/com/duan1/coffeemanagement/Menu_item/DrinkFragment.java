@@ -31,7 +31,6 @@ public class DrinkFragment extends Fragment {
     FloatingActionButton flAdd, flCart;
     final String loai = "drink";
     SanPhamDAO sanPhamDAO;
-   // ArrayList<SanPham> sanPhams;
     SanPhamAdapter sanPhamAdapter;
 
     public DrinkFragment() {
@@ -47,17 +46,13 @@ public class DrinkFragment extends Fragment {
         rvDrink=view.findViewById(R.id.rvDrink);
 
            sanPhamDAO = new SanPhamDAO(getActivity());
-           //sanPhams = sanPhamDAO.getAll();
-        //System.out.println(sanPhams);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         rvDrink.setLayoutManager(linearLayoutManager);
 
         sanPhamAdapter = new SanPhamAdapter(sanPhamss,getContext(), this);
         rvDrink.setAdapter(sanPhamAdapter);
-
-
+        
         if(idAfterLogin.substring(0,2).equals("nv")){
-
             flAdd.setEnabled(false);
             flAdd.setVisibility(View.GONE);
         }
@@ -79,7 +74,6 @@ public class DrinkFragment extends Fragment {
                 builder.setPositiveButton("Thêm", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //image input here
                         int size = sanPhamss.size();
                         String maSP = "NU" + size;
                         for(int i = 0; i < sanPhamss.size(); i++){
@@ -143,7 +137,6 @@ public class DrinkFragment extends Fragment {
     public void capnhatgiaodien(){
         sanPhamAdapter.notifyItemInserted(sanPhamss.size());
         sanPhamAdapter.notifyDataSetChanged();
-
     }
 
 }
