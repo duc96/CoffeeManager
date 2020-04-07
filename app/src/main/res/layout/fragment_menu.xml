@@ -4,12 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Menu_item.MenuFragment">
+    tools:context=".Menu_item.MenuFragment"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_margin="3dp"
+        >
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tablayoutMenu"
@@ -17,12 +20,15 @@
             android:layout_height="wrap_content"
             app:tabIndicatorColor="#034378"
             app:tabSelectedTextColor="#000408"
-            app:tabTextColor="#9e9595" />
+            app:tabTextColor="#9e9595"
+            android:background="#FFFFFF"
+            android:layout_margin="2dp"/>
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewpagerMenu"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            />
     </LinearLayout>
 
 </FrameLayout>

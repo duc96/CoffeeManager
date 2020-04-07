@@ -6,17 +6,16 @@ public class SanPham {
     private String hinhSP;
     private String tenSP;
     private int giaSP;
-    private  String mota;
 
     public SanPham() {
     }
 
-    public SanPham(String maSP, String maLoai, String tenSP, int giaSP, String mota) {
+    public SanPham(String maSP, String maLoai, String tenSP, int giaSP) {
         this.maSP = maSP;
         this.maLoai = maLoai;
         this.tenSP = tenSP;
         this.giaSP = giaSP;
-        this.mota = mota;
+
     }
 
     public SanPham(String maSP, String maLoai, String hinhSP, String tenSP, int giaSP) {
@@ -67,13 +66,6 @@ public class SanPham {
         this.giaSP = giaSP;
     }
 
-    public String getMota() {
-        return mota;
-    }
-
-    public void setMota(String mota) {
-        this.mota = mota;
-    }
 
     @Override
     public String toString() {

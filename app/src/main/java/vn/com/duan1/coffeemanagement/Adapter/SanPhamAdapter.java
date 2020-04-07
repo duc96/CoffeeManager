@@ -50,10 +50,32 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
         if(idAfterLogin.substring(0,2).equals("nv")){
             holder.iv_xoa.setEnabled(false);
             holder.iv_xoa.setVisibility(View.GONE);
+        }else{
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setTitle("Sửa thông tin sản phẩm")
+                            .setPositiveButton("Cập nhật", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            })
+                            .setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            });
+                    builder.show();
+                    return false;
+                }
+            });
         }
 
         holder.ten.setText(sp.getTenSP());
-        holder.mota.setText(sp.getMota());
         holder.gia.setText(sp.getGiaSP()+"");
 
         holder.iv_xoa.setOnClickListener(new View.OnClickListener() {
@@ -88,14 +110,12 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
 
     class SanPhamViewHolder extends RecyclerView.ViewHolder{
         private TextView ten;
-        private TextView mota;
         private TextView gia;
         private ImageView iv_xoa;
 
         public SanPhamViewHolder(View itemView) {
             super(itemView);
             this.ten = itemView.findViewById(R.id.tv_ItemName);
-            this.mota = itemView.findViewById(R.id.tv_ItemDescribe);
             this.gia = itemView.findViewById(R.id.tv_ItemPrice);
             this.iv_xoa = itemView.findViewById(R.id.iv_DeleteItem);
         }

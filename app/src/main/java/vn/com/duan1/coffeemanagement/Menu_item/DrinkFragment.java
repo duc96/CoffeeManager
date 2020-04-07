@@ -51,7 +51,7 @@ public class DrinkFragment extends Fragment {
 
         sanPhamAdapter = new SanPhamAdapter(sanPhamss,getContext(), this);
         rvDrink.setAdapter(sanPhamAdapter);
-        
+
         if(idAfterLogin.substring(0,2).equals("nv")){
             flAdd.setEnabled(false);
             flAdd.setVisibility(View.GONE);
@@ -69,7 +69,6 @@ public class DrinkFragment extends Fragment {
                 final ImageView ivPhoto=viewdialog.findViewById(R.id.ivPhoto);
                 final EditText edtItemName=viewdialog.findViewById(R.id.edtItemName);
                 final EditText edtItemPrice=viewdialog.findViewById(R.id.edtItemPrice);
-                final EditText edtItemDescribe=viewdialog.findViewById(R.id.edtItemDescribe);
 
                 builder.setPositiveButton("Thêm", new DialogInterface.OnClickListener() {
                     @Override
@@ -85,9 +84,8 @@ public class DrinkFragment extends Fragment {
 
                         String Name=edtItemName.getText().toString();
                         String Price=edtItemPrice.getText().toString();
-                        String Describe=edtItemDescribe.getText().toString();
 
-                        sanPhamDAO.themSanPham(new SanPham(maSP,loai,Name,Integer.parseInt(Price),Describe));
+                        sanPhamDAO.themSanPham(new SanPham(maSP,loai,Name,Integer.parseInt(Price)));
                         capnhatgiaodien();
 
                     }
