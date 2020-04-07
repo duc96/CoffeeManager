@@ -15,6 +15,10 @@ public class HoaDonChiTiet {
         this.soLuongMua = soLuongMua;
     }
 
+    public HoaDonChiTiet(String maSP, int soLuongMua){
+        this.maSP = maSP;
+        this.soLuongMua = soLuongMua;
+    }
 
     public String getMaHDCT() {
         return maHDCT;
