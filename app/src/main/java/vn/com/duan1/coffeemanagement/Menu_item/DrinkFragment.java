@@ -56,10 +56,8 @@ public class DrinkFragment extends Fragment {
         rvDrink.setAdapter(sanPhamAdapter);
 
 
-        if(idAfterLogin.substring(0,2).equals("ql")){
-            System.out.println("dang dang nhap voi chuc vu quan ly");
-        }else{
-            System.out.println("dang nhap voi chuc vu nhan vien");
+        if(idAfterLogin.substring(0,2).equals("nv")){
+
             flAdd.setEnabled(false);
             flAdd.setVisibility(View.GONE);
         }

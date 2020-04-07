@@ -35,10 +35,8 @@ public class FoodFragment extends Fragment {
         flCart=view.findViewById(R.id.cart);
         rvFood=view.findViewById(R.id.rvFood);
 
-        if(idAfterLogin.substring(0,2).equals("ql")){
-            System.out.println("dang dang nhap voi chuc vu quan ly");
-        }else{
-            System.out.println("dang nhap voi chuc nang nhan vieen");
+        if(idAfterLogin.substring(0,2).equals("nv")){
+
             flAddFood.setEnabled(false);
             flAddFood.setVisibility(View.GONE);
         }

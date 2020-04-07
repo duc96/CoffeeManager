@@ -33,10 +33,7 @@ public class OthersFragment extends Fragment {
         flCart=view.findViewById(R.id.cart);
         rvOthers=view.findViewById(R.id.rvOthers);
 
-        if(idAfterLogin.substring(0,2).equals("ql")){
-            System.out.println("dang dang nhap voi chuc vu quan ly");
-        }else{
-            System.out.println("dang nhap voi chuc nang nhan vien");
+        if(idAfterLogin.substring(0,2).equals("nv")){
             flAddOthers.setEnabled(false);
             flAddOthers.setVisibility(View.GONE);
         }
