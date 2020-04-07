@@ -69,10 +69,10 @@ public class MainActivity extends AppCompatActivity {
 //        hoaDonDAO.insert(hoaDon);
 //        hoaDonDAO.insert(hoaDon1);
 //        HoaDonChiTietDAO hoaDonChiTietDAO = new HoaDonChiTietDAO(this);
-//        HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet("hdct01", "hd01", "sp1", 4 );
-//        HoaDonChiTiet hoaDonChiTiet1 = new HoaDonChiTiet("hdct02", "hd01", "sp2", 3 );
-//        HoaDonChiTiet hoaDonChiTiet2 = new HoaDonChiTiet("hdct01", "hd02", "sp5", 1 );
-//        HoaDonChiTiet hoaDonChiTiet3 = new HoaDonChiTiet("hdct02", "hd02", "sp3", 2 );
+//        HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet("hdct01", "hd01", "NU5", 4 );
+//        HoaDonChiTiet hoaDonChiTiet1 = new HoaDonChiTiet("hdct02", "hd01", "NU2", 3 );
+//        HoaDonChiTiet hoaDonChiTiet2 = new HoaDonChiTiet("hdct01", "hd02", "NU5", 1 );
+//        HoaDonChiTiet hoaDonChiTiet3 = new HoaDonChiTiet("hdct02", "hd02", "NU2", 2 );
 //        hoaDonChiTietDAO.insert(hoaDonChiTiet);
 //        hoaDonChiTietDAO.insert(hoaDonChiTiet1);
 //        hoaDonChiTietDAO.insert(hoaDonChiTiet2);

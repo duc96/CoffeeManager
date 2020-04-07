@@ -17,35 +17,17 @@
         android:textStyle="bold"
         android:text="Doanh thu: "/>
 
-    <TextView
-        android:id="@+id/tvCost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:text="Chi phí: "/>
 
     <TextView
-        android:id="@+id/tvProfit"
+        android:id="@+id/tvLike"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         android:textSize="20dp"
         android:textStyle="bold"
-        android:text="Lợi nhuận: "/>
+        android:text="Sản phẩm được yêu thích: "/>
 
-    <TextView
-        android:id="@+id/tvLosses"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:text="Lỗ: "/>
 
     <LinearLayout
         android:id="@+id/getDate"

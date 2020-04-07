@@ -22,7 +22,9 @@ import vn.com.duan1.coffeemanagement.DataModel.HoaDon;
 import vn.com.duan1.coffeemanagement.DataModel.HoaDonChiTiet;
 import vn.com.duan1.coffeemanagement.R;
 
+import static vn.com.duan1.coffeemanagement.MainActivity.hoaDons;
 import static vn.com.duan1.coffeemanagement.MainActivity.listHDCTs;
+import static vn.com.duan1.coffeemanagement.MainActivity.sanPhamss;
 
 public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.ViewHolder> {
     static Context context;
@@ -53,13 +55,36 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.ViewHolder
         final HoaDon hoaDon = ds.get(position);
         holder.tvMaHD.setText("Số hóa đơn: "+hoaDon.getMaHD());
         holder.tvNgay.setText("Ngày lập: "+hoaDon.getNgayXuat());
-        holder.tvTongTien.setText("Tổng tiền: ");
-        holder.tvNguoiLap.setText("Nhân viên xử lý: ");
+
+        holder.tvNguoiLap.setText("Nhân viên xử lý: " + hoaDon.getNguoiLap());
+
+        double tong = 0;
+        for (int i = 0;i < listHDCTs.size(); i++){
+            for (int j = 0; j < sanPhamss.size(); j++){
+                if (hoaDon.getMaHD().equals(listHDCTs.get(i).getMaHD()) && listHDCTs.get(i).getMaSP().equals(sanPhamss.get(j).getMaSP())){
+                    tong += sanPhamss.get(j).getGiaSP()*listHDCTs.get(i).getSoLuongMua();
+                }
+            }
+        }
+
+        holder.tvTongTien.setText("Tổng tiền: " + tong + " VNĐ");
         holder.btnXemCT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 View view =LayoutInflater.from(context).inflate(R.layout.dialog_bill, null, false);
+                TextView tvTongTien = view.findViewById(R.id.tv_BillTotal);
+
+                double tong1 = 0;
+                for (int i = 0;i < listHDCTs.size(); i++){
+                    for (int j = 0; j < sanPhamss.size(); j++){
+                        if (hoaDon.getMaHD().equals(listHDCTs.get(i).getMaHD()) && listHDCTs.get(i).getMaSP().equals(sanPhamss.get(j).getMaSP())){
+                            tong1 += sanPhamss.get(j).getGiaSP()*listHDCTs.get(i).getSoLuongMua();
+                        }
+                    }
+                }
+
+                tvTongTien.setText(tong1 +" VNĐ");
                 ListView lv = view.findViewById(R.id.lvHDCT);
 
                 List list = new ArrayList();
