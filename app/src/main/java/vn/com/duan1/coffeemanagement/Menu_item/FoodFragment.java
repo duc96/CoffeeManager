@@ -55,7 +55,6 @@ public class FoodFragment extends Fragment {
                 final ImageView ivPhoto=viewdialog.findViewById(R.id.ivPhoto);
                 final EditText edtItemName=viewdialog.findViewById(R.id.edtItemName);
                 final EditText edtItemPrice=viewdialog.findViewById(R.id.edtItemPrice);
-                final EditText edtItemDescribe=viewdialog.findViewById(R.id.edtItemDescribe);
 
 
                 builder.setPositiveButton("Thêm", new DialogInterface.OnClickListener() {
@@ -64,7 +63,6 @@ public class FoodFragment extends Fragment {
                         //image input here
                         String Name=edtItemName.getText().toString();
                         String Price=edtItemPrice.getText().toString();
-                        String Describe=edtItemDescribe.getText().toString();
                         capnhatgiaodien();
                         Toast.makeText(getActivity(), "Đã thêm", Toast.LENGTH_SHORT).show();
                     }

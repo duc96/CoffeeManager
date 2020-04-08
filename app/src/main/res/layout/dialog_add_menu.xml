@@ -20,11 +20,11 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
+        android:id="@+id/tv_chonhinhanh"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="30dp"
+        android:layout_margin="5dp"
+        android:gravity="center"
         android:textStyle="bold"
         android:textSize="15dp"
         android:text="Chọn ảnh minh họa cho đồ uống / thức ăn"
@@ -47,8 +47,6 @@
         android:hint="Tên đồ uống / thức ăn"
         android:inputType="textPersonName" />
 
-
-
     <EditText
         android:id="@+id/edtItemPrice"
         android:layout_width="match_parent"
@@ -57,12 +55,5 @@
         android:hint="Giá tiền"
         android:inputType="textPersonName" />
 
-    <EditText
-        android:id="@+id/edtItemDescribe"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:gravity="start"
-        android:ems="10"
-        android:hint="Mô tả"
-        android:inputType="textPersonName" />
+
 </LinearLayout>
