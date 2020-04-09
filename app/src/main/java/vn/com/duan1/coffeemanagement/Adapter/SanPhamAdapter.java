@@ -50,6 +50,10 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
         if (idAfterLogin.substring(0, 2).equals("nv")) {
             holder.iv_xoa.setEnabled(false);
             holder.iv_xoa.setVisibility(View.GONE);
+
+            holder.ten.setText(sp.getTenSP());
+            holder.gia.setText(sp.getGiaSP() + "");
+            holder.hinh.setImageResource(sp.getHinhSP());
         } else {
             holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
