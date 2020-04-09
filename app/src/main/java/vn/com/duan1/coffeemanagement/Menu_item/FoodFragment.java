@@ -13,6 +13,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import vn.com.duan1.coffeemanagement.Adapter.ImageAdapter;
+import vn.com.duan1.coffeemanagement.Adapter.SanPhamAdapter;
+import vn.com.duan1.coffeemanagement.DAO.SanPhamDAO;
 import vn.com.duan1.coffeemanagement.R;
 
 import static vn.com.duan1.coffeemanagement.MainActivity.idAfterLogin;
@@ -20,7 +23,30 @@ import static vn.com.duan1.coffeemanagement.MainActivity.idAfterLogin;
 public class FoodFragment extends Fragment {
     RecyclerView rvFood;
     FloatingActionButton flAddFood, flCart;
+    private RecyclerView rcImage;
+    private SanPhamDAO sanPhamDAO;
+    private SanPhamAdapter sanPhamAdapter;
+    private ImageAdapter imageAdapter;
+    private int[] images = {R.mipmap.ta_banhcanh,
+            R.mipmap.ta_banhmi_bth,
+            R.mipmap.ta_banhmi_chaca,
+            R.mipmap.ta_bunrieu,
+            R.mipmap.ta_comchien_trungmuoi,
+            R.mipmap.ta_goicuon,
+            R.mipmap.ta_hutiu_nuoc,
+            R.mipmap.ta_hutiu_xao,
+            R.mipmap.ta_mi_xao_bo,
+            R.mipmap.ta_mi_xao_thapcam,
+            R.mipmap.ta_mi_xao_tom,
+            R.mipmap.ta_mixao_trung,
+            R.mipmap.ta_phobo,
+            R.mipmap.ta_phocuon,
+            R.mipmap.ta_phoga,
+            R.mipmap.ta_soup_cua,
+            R.mipmap.ta_soup_raucu
+    };
 
+    private RecyclerView.LayoutManager layoutManager;
 
     public FoodFragment() {
         // Required empty public constructor

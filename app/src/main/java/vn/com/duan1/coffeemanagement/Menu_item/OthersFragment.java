@@ -13,6 +13,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import vn.com.duan1.coffeemanagement.Adapter.ImageAdapter;
+import vn.com.duan1.coffeemanagement.Adapter.SanPhamAdapter;
+import vn.com.duan1.coffeemanagement.DAO.SanPhamDAO;
 import vn.com.duan1.coffeemanagement.R;
 
 import static vn.com.duan1.coffeemanagement.MainActivity.idAfterLogin;
@@ -20,6 +23,24 @@ import static vn.com.duan1.coffeemanagement.MainActivity.idAfterLogin;
 public class OthersFragment extends Fragment {
     RecyclerView rvOthers;
     FloatingActionButton flAddOthers, flCart;
+    private RecyclerView rcImage;
+    private SanPhamDAO sanPhamDAO;
+    private SanPhamAdapter sanPhamAdapter;
+    private ImageAdapter imageAdapter;
+    private int[] images = {R.mipmap.k_banhngot,
+            R.mipmap.k_banhpia,
+            R.mipmap.k_banhplan,
+            R.mipmap.k_banhtrang_cay,
+            R.mipmap.k_cavien_chien,
+            R.mipmap.k_duiga_chien,
+            R.mipmap.k_hamburger,
+            R.mipmap.k_kemcuon,
+            R.mipmap.k_khoaitay_chien,
+            R.mipmap.k_snack,
+            R.mipmap.k_traicay_to
+    };
+
+    private RecyclerView.LayoutManager layoutManager;
 
     public OthersFragment() {
         // Required empty public constructor
