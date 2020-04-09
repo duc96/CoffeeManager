@@ -77,6 +77,7 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
 
         holder.ten.setText(sp.getTenSP());
         holder.gia.setText(sp.getGiaSP()+"");
+        holder.hinh.setImageResource(sp.getHinhSP());
 
         holder.iv_xoa.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,11 +113,13 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
         private TextView ten;
         private TextView gia;
         private ImageView iv_xoa;
+        private ImageView hinh;
 
         public SanPhamViewHolder(View itemView) {
             super(itemView);
             this.ten = itemView.findViewById(R.id.tv_ItemName);
             this.gia = itemView.findViewById(R.id.tv_ItemPrice);
+            this.hinh = itemView.findViewById(R.id.iv_ItemPhoto);
             this.iv_xoa = itemView.findViewById(R.id.iv_DeleteItem);
         }
     }

@@ -3,7 +3,6 @@ package vn.com.duan1.coffeemanagement.Menu_item;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,13 +14,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
-
+import vn.com.duan1.coffeemanagement.Adapter.ImageAdapter;
 import vn.com.duan1.coffeemanagement.Adapter.SanPhamAdapter;
 import vn.com.duan1.coffeemanagement.DAO.SanPhamDAO;
 import vn.com.duan1.coffeemanagement.DataModel.SanPham;
@@ -32,12 +31,33 @@ import static vn.com.duan1.coffeemanagement.MainActivity.idAfterLogin;
 import static vn.com.duan1.coffeemanagement.MainActivity.sanPhamss;
 
 public class DrinkFragment extends Fragment {
-    RecyclerView rvDrink;
-    FloatingActionButton flAdd, flCart;
-    final String loai = "drink";
-    SanPhamDAO sanPhamDAO;
-    SanPhamAdapter sanPhamAdapter;
+    private RecyclerView rvDrink;
+    private RecyclerView rcImage;
+    private FloatingActionButton flAdd, flCart;
+    private final String loai = "drink";
+    private SanPhamDAO sanPhamDAO;
+    private SanPhamAdapter sanPhamAdapter;
+    private ImageAdapter imageAdapter;
 
+    private int[] images = {R.mipmap.seven_up,
+            R.mipmap.ca_phe_den,
+            R.mipmap.ca_phe_den_nong,
+            R.mipmap.ca_phe_sua,
+            R.mipmap.ca_phe_sua_nong,
+            R.mipmap.coca_cola,
+            R.mipmap.da_chanh,
+            R.mipmap.bac_xiu_da,
+            R.mipmap.tra_gung,
+            R.mipmap.tra_sua_chan_chau_duong_den,
+            R.mipmap.cam_ep,
+            R.mipmap.mirinda,
+            R.mipmap.monter,
+            R.mipmap.moutanin_dew,
+            R.mipmap.spire,
+            R.mipmap.sting
+    };
+
+    private RecyclerView.LayoutManager layoutManager;
     public DrinkFragment() {
         // Required empty public constructor
     }
@@ -73,43 +93,35 @@ public class DrinkFragment extends Fragment {
                 builder.setView(viewdialog);
 
                 final ImageView ivPhoto = viewdialog.findViewById(R.id.ivPhoto);
-                final TextView tvTakePicture = viewdialog.findViewById(R.id.tv_chonhinhanh);
                 final EditText edtItemName = viewdialog.findViewById(R.id.edtItemName);
                 final EditText edtItemPrice = viewdialog.findViewById(R.id.edtItemPrice);
 
-                tvTakePicture.setOnClickListener(new View.OnClickListener() {
+                ivPhoto.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
                         AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
                         LayoutInflater inf1 = getLayoutInflater().from(viewdialog.getContext());
-                        View view2 = inf1.inflate(R.layout.select_image, null);
-                        GridView gr = view2.findViewById(R.id.gridView);
+                        View view2 = inf1.inflate(R.layout.rv_image, null);
+                        rcImage = view2.findViewById(R.id.rcImage);
+                        layoutManager = new GridLayoutManager(viewdialog.getContext(),2);
+                        rcImage.setHasFixedSize(true);
+                        rcImage.setLayoutManager(layoutManager);
+                        imageAdapter = new ImageAdapter(images,getContext());
+                        rcImage.setAdapter(imageAdapter);
 
-                        SanPham seven_up = new SanPham(R.mipmap.seven_up,"seven_up");
-                        SanPham ca_phe_den = new SanPham(R.mipmap.ca_phe_den,"ca_phe_den");
-//                imageID.add(R.mipmap.seven_up);
-//                imageID.add(R.mipmap.ca_phe_den);
-//                imageID.add(R.mipmap.ca_phe_den_nong);
-//                imageID.add(R.mipmap.ca_phe_sua);
-//                imageID.add(R.mipmap.ca_phe_sua_nong);
-//                imageID.add(R.mipmap.coca_cola);
-//                imageID.add(R.mipmap.da_chanh);
-//                imageID.add(R.mipmap.bac_xiu_da);
-//                imageID.add(R.mipmap.tra_gung);
-//                imageID.add(R.mipmap.tra_sua_chan_chau_duong_den);
-                        SanPham[] sansn = new SanPham[]{seven_up,ca_phe_den};
-
-                        ArrayAdapter arrayAdapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, sansn);
-
-                        gr.setAdapter(arrayAdapter);
+                        if(ImageAdapter.id_image != 0){
+                            ivPhoto.setImageResource(ImageAdapter.id_image);
+                        }else{
+                            ivPhoto.setImageResource(R.drawable.ic_camera);
+                        }
 
                         builder1.setView(view2)
                                 .setTitle("Chọn ảnh")
-                                .setPositiveButton("Chọn", new DialogInterface.OnClickListener() {
+                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-
+                                        ivPhoto.setImageResource(ImageAdapter.id_image);
                                     }
                                 })
                                 .setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
@@ -137,7 +149,7 @@ public class DrinkFragment extends Fragment {
                         String Name = edtItemName.getText().toString();
                         String Price = edtItemPrice.getText().toString();
 
-                        sanPhamDAO.themSanPham(new SanPham(maSP, loai, Name, Integer.parseInt(Price)));
+                        sanPhamDAO.themSanPham(new SanPham(maSP, loai,ImageAdapter.id_image, Name, Integer.parseInt(Price)));
                         capnhatgiaodien();
 
                     }
