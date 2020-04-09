@@ -36,7 +36,7 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
 
     @Override
     public SanPhamViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(context).inflate(R.layout.one_item_menu,parent,false);
+        View itemView = LayoutInflater.from(context).inflate(R.layout.one_item_menu, parent, false);
 
         return new SanPhamViewHolder(itemView);
     }
@@ -47,10 +47,10 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
         sanPhamDAO = new SanPhamDAO(context);
         final SanPham sp = sanPhams.get(position);
 
-        if(idAfterLogin.substring(0,2).equals("nv")){
+        if (idAfterLogin.substring(0, 2).equals("nv")) {
             holder.iv_xoa.setEnabled(false);
             holder.iv_xoa.setVisibility(View.GONE);
-        }else{
+        } else {
             holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
@@ -73,35 +73,36 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
                     return false;
                 }
             });
+
+
+            holder.ten.setText(sp.getTenSP());
+            holder.gia.setText(sp.getGiaSP() + "");
+            holder.hinh.setImageResource(sp.getHinhSP());
+
+            holder.iv_xoa.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setTitle("Xóa sản phẩm")
+                            .setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    sanPhamDAO.xoaSanPham(sp);
+                                    sanPhams.remove(position);
+                                    notifyDataSetChanged();
+                                }
+                            })
+                            .setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            });
+                    builder.show();
+                }
+            });
         }
-
-        holder.ten.setText(sp.getTenSP());
-        holder.gia.setText(sp.getGiaSP()+"");
-        holder.hinh.setImageResource(sp.getHinhSP());
-
-        holder.iv_xoa.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setTitle("Xóa sản phẩm")
-                        .setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                sanPhamDAO.xoaSanPham(sp);
-                                sanPhams.remove(position);
-                                notifyDataSetChanged();
-                            }
-                        })
-                        .setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        });
-                builder.show();
-            }
-        });
     }
 
     @Override
@@ -109,7 +110,7 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
         return sanPhams.size();
     }
 
-    class SanPhamViewHolder extends RecyclerView.ViewHolder{
+    class SanPhamViewHolder extends RecyclerView.ViewHolder {
         private TextView ten;
         private TextView gia;
         private ImageView iv_xoa;
