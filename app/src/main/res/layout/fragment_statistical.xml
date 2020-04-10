@@ -18,16 +18,6 @@
         android:text="Doanh thu: "/>
 
 
-    <TextView
-        android:id="@+id/tvLike"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:text="Sản phẩm được yêu thích: "/>
-
 
     <LinearLayout
         android:id="@+id/getDate"
@@ -64,6 +54,12 @@
         android:textSize="20sp"
         android:background="@drawable/button_login"
         android:text="Thống kê" />
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:layout_marginTop="25dp"
+        android:id="@+id/pieChart"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"/>
 
 
 </LinearLayout>

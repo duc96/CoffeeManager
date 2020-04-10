@@ -64,15 +64,15 @@ public class MainActivity extends AppCompatActivity {
         }
 
 //        HoaDonDAO hoaDonDAO = new HoaDonDAO(this);
-//        HoaDon hoaDon = new HoaDon("hd01","06/04/2020","Chưa thanh toán","nv1");
-//        HoaDon hoaDon1 = new HoaDon("hd02", "07/04/2020","Đã thanh toán","ql1");
+//        HoaDon hoaDon = new HoaDon("hd03","08/04/2020","Chưa thanh toán","nv1");
+//        HoaDon hoaDon1 = new HoaDon("hd04", "09/04/2020","Đã thanh toán","ql1");
 //        hoaDonDAO.insert(hoaDon);
 //        hoaDonDAO.insert(hoaDon1);
 //        HoaDonChiTietDAO hoaDonChiTietDAO = new HoaDonChiTietDAO(this);
-//        HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet("hdct01", "hd01", "NU5", 4 );
-//        HoaDonChiTiet hoaDonChiTiet1 = new HoaDonChiTiet("hdct02", "hd01", "NU2", 3 );
-//        HoaDonChiTiet hoaDonChiTiet2 = new HoaDonChiTiet("hdct01", "hd02", "NU5", 1 );
-//        HoaDonChiTiet hoaDonChiTiet3 = new HoaDonChiTiet("hdct02", "hd02", "NU2", 2 );
+//        HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet("hdct03", "hd03", "NU4", 7 );
+//        HoaDonChiTiet hoaDonChiTiet1 = new HoaDonChiTiet("hdct02", "hd04", "NU3", 3 );
+//        HoaDonChiTiet hoaDonChiTiet2 = new HoaDonChiTiet("hdct04", "hd03", "NU1", 6 );
+//        HoaDonChiTiet hoaDonChiTiet3 = new HoaDonChiTiet("hdct01", "hd02", "NU2", 4 );
 //        hoaDonChiTietDAO.insert(hoaDonChiTiet);
 //        hoaDonChiTietDAO.insert(hoaDonChiTiet1);
 //        hoaDonChiTietDAO.insert(hoaDonChiTiet2);
