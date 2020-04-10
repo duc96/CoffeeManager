@@ -43,16 +43,13 @@ public class SanPhamDAO {
                 for(DataSnapshot data:dataSnapshot.getChildren()){
                     SanPham sanPham = data.getValue(SanPham.class);
                     sanPhams.add(sanPham);
-
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 nonUI.toast("Lỗi kết nối Database rồi !");
             }
         });
-
         return sanPhams;
     }
 
@@ -65,17 +62,14 @@ public class SanPhamDAO {
                 for(DataSnapshot data:dataSnapshot.getChildren()){
                     SanPham sanPham = data.getValue(SanPham.class);
                     sanPhams.add(sanPham);
-
                 }
         //        drinkFragment.capnhatgiaodien();
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 nonUI.toast("Lỗi kết nối Database rồi !");
             }
         });
-
         return sanPhams;
     }
 
@@ -107,23 +101,19 @@ public class SanPhamDAO {
                                     @Override
                                     public void onSuccess(Void aVoid) {
                                         nonUI.toast("xóa rồi nè !");
-
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
                                         nonUI.toast("xóa không được !");
-
                                     }
                                 });
                     }
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
     }

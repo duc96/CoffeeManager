@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -42,7 +43,7 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SanPhamViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final SanPhamViewHolder holder, final int position) {
 
         sanPhamDAO = new SanPhamDAO(context);
         final SanPham sp = sanPhams.get(position);
@@ -75,6 +76,58 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
                             });
                     builder.show();
                     return false;
+                }
+            });
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    View mv = LayoutInflater.from(context).inflate(R.layout.one_item_cart,null);
+
+                    ImageView ig = mv.findViewById(R.id.iv_ItemPhoto);
+                    TextView ten = mv.findViewById(R.id.tv_ItemName);
+                    final TextView soluong = mv.findViewById(R.id.tv_ItemNumber);
+                    ImageView minus = mv.findViewById(R.id.minus);
+                    ImageView plus = mv.findViewById(R.id.plus);
+
+                    ig.setImageResource(sp.getHinhSP());
+                    ten.setText(sp.getTenSP());
+                    soluong.setText("1");
+
+                    minus.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            int num =Integer.parseInt(soluong.getText().toString());
+                            if (num - 1 > 1 || num - 1 == 1){
+                                soluong.setText(num - 1+"");
+                            }
+                        }
+                    });
+
+                    plus.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            int num =Integer.parseInt(soluong.getText().toString());
+                                soluong.setText(num + 1+"");
+                        }
+                    });
+
+                    builder.setTitle("Order món này nhé !")
+                            .setView(mv)
+                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            })
+                            .setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            });
+                    builder.show();
                 }
             });
 
