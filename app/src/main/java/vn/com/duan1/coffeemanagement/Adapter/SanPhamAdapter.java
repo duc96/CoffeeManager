@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -27,9 +28,9 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
     SanPhamDAO sanPhamDAO;
     private ArrayList<SanPham> sanPhams;
     private Context context;
-    DrinkFragment fr;
+    Fragment fr;
 
-    public SanPhamAdapter(ArrayList<SanPham> sanPhams, Context context, DrinkFragment fr) {
+    public SanPhamAdapter(ArrayList<SanPham> sanPhams, Context context, Fragment fr) {
         this.sanPhams = sanPhams;
         this.context = context;
         this.fr = fr;
@@ -48,42 +49,21 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
         sanPhamDAO = new SanPhamDAO(context);
         final SanPham sp = sanPhams.get(position);
 
+        holder.ten.setText(sp.getTenSP());
+        holder.gia.setText(sp.getGiaSP() + "");
+        holder.hinh.setImageResource(sp.getHinhSP());
+
         if (idAfterLogin.substring(0, 2).equals("nv")) {
             holder.iv_xoa.setEnabled(false);
             holder.iv_xoa.setVisibility(View.GONE);
 
-            holder.ten.setText(sp.getTenSP());
-            holder.gia.setText(sp.getGiaSP() + "");
-            holder.hinh.setImageResource(sp.getHinhSP());
         } else {
-            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-
-                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                    builder.setTitle("Sửa thông tin sản phẩm")
-                            .setPositiveButton("Cập nhật", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-
-                                }
-                            })
-                            .setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-
-                                }
-                            });
-                    builder.show();
-                    return false;
-                }
-            });
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                    View mv = LayoutInflater.from(context).inflate(R.layout.one_item_cart,null);
+                    View mv = LayoutInflater.from(context).inflate(R.layout.one_item_cart, null);
 
                     ImageView ig = mv.findViewById(R.id.iv_ItemPhoto);
                     TextView ten = mv.findViewById(R.id.tv_ItemName);
@@ -98,9 +78,9 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
                     minus.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            int num =Integer.parseInt(soluong.getText().toString());
-                            if (num - 1 > 1 || num - 1 == 1){
-                                soluong.setText(num - 1+"");
+                            int num = Integer.parseInt(soluong.getText().toString());
+                            if (num - 1 > 1 || num - 1 == 1) {
+                                soluong.setText(num - 1 + "");
                             }
                         }
                     });
@@ -108,12 +88,12 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
                     plus.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            int num =Integer.parseInt(soluong.getText().toString());
-                                soluong.setText(num + 1+"");
+                            int num = Integer.parseInt(soluong.getText().toString());
+                            soluong.setText(num + 1 + "");
                         }
                     });
 
-                    builder.setTitle("Order món này nhé !")
+                    builder.setTitle("Chọn món này nhé !")
                             .setView(mv)
                             .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                 @Override
@@ -130,11 +110,6 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
                     builder.show();
                 }
             });
-
-
-            holder.ten.setText(sp.getTenSP());
-            holder.gia.setText(sp.getGiaSP() + "");
-            holder.hinh.setImageResource(sp.getHinhSP());
 
             holder.iv_xoa.setOnClickListener(new View.OnClickListener() {
                 @Override

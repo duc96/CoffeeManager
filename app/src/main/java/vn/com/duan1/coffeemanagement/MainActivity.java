@@ -26,17 +26,21 @@ public class MainActivity extends AppCompatActivity {
     public static String passwordAfterLogin;
     public static ArrayList<HoaDonChiTiet> listHDCTs = new ArrayList<>();
     public static ArrayList<HoaDon> hoaDons = new ArrayList<>();
+
     public static ArrayList<SanPham> sanPhamss = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Bundle b = getIntent().getBundleExtra("loginInfo");
         if(b!=null){
             idAfterLogin = b.getString("id");
             passwordAfterLogin = b.getString("password");
             Log.d("accountInfo", idAfterLogin+passwordAfterLogin);
         }
+
         bnv = findViewById(R.id.bnv);
 
         if (savedInstanceState == null) {
@@ -80,6 +84,9 @@ public class MainActivity extends AppCompatActivity {
         getHDCT();
         getHoaDon();
         getSanPham();
+
+
+
     }
 
     public void getSanPham(){

@@ -4,31 +4,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Menu_item.MenuFragment"
-    >
+    tools:context=".Menu_item.MenuFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_margin="3dp"
-        >
+        android:orientation="vertical">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tablayoutMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:background="#FFFFFF"
             app:tabIndicatorColor="#034378"
             app:tabSelectedTextColor="#000408"
-            app:tabTextColor="#9e9595"
-            android:background="#FFFFFF"
-            android:layout_margin="2dp"/>
+            app:tabTextColor="#9e9595" />
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewpagerMenu"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
+            android:layout_height="match_parent" />
+
     </LinearLayout>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_add"
+        />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/cart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_marginBottom="80dp"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/ic_cart"
+            />
 </FrameLayout>
