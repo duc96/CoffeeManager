@@ -1,37 +1,107 @@
-<RelativeLayout android:background="#e1e1e1"
-    android:layout_height="fill_parent"
-    android:layout_width="fill_parent"
+<RelativeLayout
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_ma_hd"
+        android:text="ma HD"
+        android:layout_margin="5dp"
+        android:gravity="center"
+        android:textSize="23dp"
+        />
     <LinearLayout
         android:id="@+id/layout_total"
+        android:layout_below="@id/tv_ma_hd"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:padding="5dp"
-        android:weightSum="2">
+        android:layout_margin="5dp"
+        android:weightSum="3"
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="end"
+            android:gravity="center"
             android:text="Tổng cộng : "
             android:textSize="20dp"></TextView>
 
         <TextView
+            android:layout_width="0dp"
             android:id="@+id/tv_total"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="center"
+            android:text="0"
+            android:textSize="20dp"></TextView>
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:layout_width="0dp"
-            android:text="0 VNĐ"
+            android:text="VNĐ"
             android:textSize="20dp">
         </TextView>
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_cart"
-        android:layout_below="@+id/layout_total"
-        android:layout_height="match_parent"
+    <LinearLayout
+        android:layout_margin="5dp"
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/layout_total"
+        android:weightSum="5">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="Tên SP"
+            android:textSize="20dp"
+            android:gravity="center"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.2"
+            android:text="Số lượng"
+            android:gravity="center"
+            android:textSize="20dp"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="Thành tiền"
+            android:gravity="center"
+            android:textSize="20dp"/>
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/lv_cart_hdct"
+        android:layout_below="@+id/text"
+        android:layout_height="wrap_content"
         android:layout_width="match_parent">
-    </androidx.recyclerview.widget.RecyclerView>
+    </ListView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_ngay_lap_hd"
+        android:text="dd/mm/yy"
+        android:textSize="23dp"
+        android:layout_marginLeft="30dp"
+        android:gravity="center"
+        android:layout_below="@id/lv_cart_hdct"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_nguoi_lap_hd"
+        android:text="name"
+        android:textSize="23dp"
+        android:layout_marginRight="90dp"
+        android:gravity="center"
+        android:layout_below="@id/lv_cart_hdct"
+        android:layout_alignParentRight="true"/>
 
 </RelativeLayout>

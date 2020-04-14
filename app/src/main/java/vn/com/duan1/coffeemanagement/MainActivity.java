@@ -13,9 +13,11 @@ import vn.com.duan1.coffeemanagement.Account_item.AccountInforFragment;
 import vn.com.duan1.coffeemanagement.Bill_item.BillFragment;
 import vn.com.duan1.coffeemanagement.DAO.HoaDonChiTietDAO;
 import vn.com.duan1.coffeemanagement.DAO.HoaDonDAO;
+import vn.com.duan1.coffeemanagement.DAO.NguoiDungDAO;
 import vn.com.duan1.coffeemanagement.DAO.SanPhamDAO;
 import vn.com.duan1.coffeemanagement.DataModel.HoaDon;
 import vn.com.duan1.coffeemanagement.DataModel.HoaDonChiTiet;
+import vn.com.duan1.coffeemanagement.DataModel.NguoiDung;
 import vn.com.duan1.coffeemanagement.DataModel.SanPham;
 import vn.com.duan1.coffeemanagement.Menu_item.MenuFragment;
 import vn.com.duan1.coffeemanagement.Staff_item.StaffManagementFragment;
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     public static String passwordAfterLogin;
     public static ArrayList<HoaDonChiTiet> listHDCTs = new ArrayList<>();
     public static ArrayList<HoaDon> hoaDons = new ArrayList<>();
+    public static ArrayList<NguoiDung> nguoiDungs = new ArrayList<>();
 
     public static ArrayList<SanPham> sanPhamss = new ArrayList<>();
 
@@ -85,8 +88,14 @@ public class MainActivity extends AppCompatActivity {
         getHoaDon();
         getSanPham();
 
+        getUser();
 
 
+    }
+
+    public void getUser(){
+        NguoiDungDAO nguoiDungDAO = new NguoiDungDAO(this);
+        nguoiDungs = nguoiDungDAO.getUsers();
     }
 
     public void getSanPham(){

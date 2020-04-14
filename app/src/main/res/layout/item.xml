@@ -4,31 +4,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
+    <LinearLayout
+        android:layout_margin="5dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/layout_total"
+        android:weightSum="5">
         <TextView
-            android:id="@+id/ten"
-            android:layout_width="wrap_content"
+            android:id="@+id/tv_ten_sp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Mã hóa đơn: "
-            android:layout_margin="5dp"
-            android:textStyle="bold"
-            android:textSize="20sp"/>
+            android:layout_weight="2"
+            android:text="Tên SP"
+            android:textSize="20dp"
+            android:gravity="center"/>
         <TextView
-            android:id="@+id/tv_maHD"
-            android:layout_width="wrap_content"
+            android:id="@+id/tv_soluong_sp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="01"
-            android:layout_margin="5dp"
-            android:layout_toRightOf="@id/ten"
-            android:textStyle="bold"
-            android:textSize="20sp"/>
-        <ListView
-            android:id="@+id/lv_HDCT"
-            android:layout_below="@id/ten"
-            android:layout_margin="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </RelativeLayout>
+            android:layout_weight="1.2"
+            android:text="Số lượng"
+            android:gravity="center"
+            android:textSize="20dp"/>
+        <TextView
+            android:id="@+id/tv_thanhtien_sp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="Thành tiền"
+            android:gravity="center"
+            android:textSize="20dp"/>
+    </LinearLayout>
 </androidx.cardview.widget.CardView>

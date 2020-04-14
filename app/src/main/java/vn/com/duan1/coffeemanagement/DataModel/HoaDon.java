@@ -3,15 +3,13 @@ package vn.com.duan1.coffeemanagement.DataModel;
 public class HoaDon {
     private String maHD;
     private String ngayXuat;
-    private String trangThai;
     private String nguoiLap;
 
     public HoaDon(){}
 
-    public HoaDon(String maHD, String ngayXuat, String trangThai, String nguoiLap) {
+    public HoaDon(String maHD, String ngayXuat,String nguoiLap) {
         this.maHD = maHD;
         this.ngayXuat = ngayXuat;
-        this.trangThai = trangThai;
         this.nguoiLap = nguoiLap;
     }
 
@@ -39,20 +37,12 @@ public class HoaDon {
         this.ngayXuat = ngayXuat;
     }
 
-    public String getTrangThai() {
-        return trangThai;
-    }
-
-    public void setTrangThai(String trangThai) {
-        this.trangThai = trangThai;
-    }
 
     @Override
     public String toString() {
         return "HoaDon{" +
                 "maHD='" + maHD + '\'' +
                 ", ngayXuat='" + ngayXuat + '\'' +
-                ", trangThai='" + trangThai + '\'' +
                 ", nguoiLap='" + nguoiLap + '\'' +
                 '}';
     }

@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import vn.com.duan1.coffeemanagement.DAO.SanPhamDAO;
+import vn.com.duan1.coffeemanagement.DataModel.CartHDCT;
 import vn.com.duan1.coffeemanagement.DataModel.HoaDonChiTiet;
 import vn.com.duan1.coffeemanagement.DataModel.SanPham;
 import vn.com.duan1.coffeemanagement.Menu_item.DrinkFragment;
@@ -232,13 +233,14 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
                             public void onClick(DialogInterface dialog, int which) {
 
                                 stt ++;
-                                String masp = ten.getText().toString();
+                                String tensp = ten.getText().toString();
                                 int soluongmua = Integer.parseInt(soluong.getText().toString());
+                                int tongtien = sp.getGiaSP() * soluongmua;
 
-                                HoaDonChiTiet donChiTiet = new HoaDonChiTiet("hdct"+stt,masp,soluongmua);
-                                hdcts.add(donChiTiet);
+                                CartHDCT cartHDCT = new CartHDCT(tensp,soluongmua,tongtien);
+                                hdcts.add(cartHDCT);
 
-                                System.out.println("stt"+stt);
+                                System.out.println("stt"+ hdcts);
 
                             }
                         })

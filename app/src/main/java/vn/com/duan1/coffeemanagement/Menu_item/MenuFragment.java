@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -25,15 +27,25 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import vn.com.duan1.coffeemanagement.Adapter.ImageAdapter;
+import vn.com.duan1.coffeemanagement.Adapter.ListViewCartAdapter;
+import vn.com.duan1.coffeemanagement.DAO.HoaDonDAO;
 import vn.com.duan1.coffeemanagement.DAO.SanPhamDAO;
+import vn.com.duan1.coffeemanagement.DataModel.CartHDCT;
+import vn.com.duan1.coffeemanagement.DataModel.HoaDon;
 import vn.com.duan1.coffeemanagement.DataModel.HoaDonChiTiet;
 import vn.com.duan1.coffeemanagement.DataModel.SanPham;
 import vn.com.duan1.coffeemanagement.R;
 
+import static vn.com.duan1.coffeemanagement.MainActivity.hoaDons;
 import static vn.com.duan1.coffeemanagement.MainActivity.idAfterLogin;
+import static vn.com.duan1.coffeemanagement.MainActivity.nguoiDungs;
 import static vn.com.duan1.coffeemanagement.MainActivity.sanPhamss;
 
 public class MenuFragment extends Fragment {
@@ -56,7 +68,7 @@ public class MenuFragment extends Fragment {
     public static ArrayList<SanPham> khacs = new ArrayList<>();
     DatabaseReference mdata;
     public static ArrayList<SanPham> sanphamss = new ArrayList<>();
-    public static ArrayList<HoaDonChiTiet> hdcts = new ArrayList<HoaDonChiTiet>();
+    public static ArrayList<CartHDCT> hdcts = new ArrayList<CartHDCT>();
 
     public MenuFragment() {
     }
@@ -280,8 +292,57 @@ public class MenuFragment extends Fragment {
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 View view1 = LayoutInflater.from(getContext()).inflate(R.layout.dialog_cart,null);
+
+                final TextView maHD = view1.findViewById(R.id.tv_ma_hd);
+                TextView total = view1.findViewById(R.id.tv_total);
+                ListView lv = view1.findViewById(R.id.lv_cart_hdct);
+                final TextView ngaylaphd = view1.findViewById(R.id.tv_ngay_lap_hd);
+                final TextView nguoilaphd = view1.findViewById(R.id.tv_nguoi_lap_hd);
+
+                ListViewCartAdapter listViewCartAdapter = new ListViewCartAdapter(getContext(),hdcts);
+                lv.setAdapter(listViewCartAdapter);
+                listViewCartAdapter.notifyDataSetChanged();
+
+                int tong = 0;
+                for (int i = 0; i < hdcts.size(); i++){
+                    tong += hdcts.get(i).getTongtien();
+                }
+
+                total.setText(tong+"");
+
+                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                Calendar cal = Calendar.getInstance();
+                String s = dateFormat.format(cal.getTime());
+
+                ngaylaphd.setText(s);
+                String name = "null";
+                for (int i = 0; i < nguoiDungs.size(); i++){
+                    if (idAfterLogin.equals(nguoiDungs.get(i).getUserID())){
+                        name = nguoiDungs.get(i).getTen();
+                    }
+                }
+
+                System.out.println(nguoiDungs);
+                nguoilaphd.setText(name);
+
+                int stt = 0;
+                String ma = "0";
+                for (int i = 0; i < hoaDons.size(); i++){
+                    stt = hoaDons.size();
+                     ma = "HD" + stt;
+                }
+
+                maHD.setText(ma);
+
                 builder.setView(view1)
-                        .setTitle("Các hóa đơn chưa thanh toán")
+                        .setPositiveButton("Xuất hóa đơn", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                HoaDonDAO hoaDonDAO = new HoaDonDAO(getContext());
+                                hoaDonDAO.insert(new HoaDon(maHD.getText().toString(),ngaylaphd.getText().toString(),nguoilaphd.getText().toString()));
+                            }
+                        })
                         .setNegativeButton("Quay lại", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
