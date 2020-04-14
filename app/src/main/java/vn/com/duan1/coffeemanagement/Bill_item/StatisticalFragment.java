@@ -247,6 +247,7 @@ public class StatisticalFragment extends Fragment {
         });
         String ten1 = "";
         String ten2 = "";
+        String ten0 = "";
         System.out.println(arrayList);
         for (int i = 0; i < sanPhamss.size(); i++){
             if (arrayList.get(1).getMaSP().equals(sanPhamss.get(i).getMaSP())){
@@ -254,7 +255,9 @@ public class StatisticalFragment extends Fragment {
             }
             if (arrayList.get(2).getMaSP().equals(sanPhamss.get(i).getMaSP())){
                 ten2 = sanPhamss.get(i).getTenSP();
-
+            }
+            if (arrayList.get(0).getMaSP().equals(sanPhamss.get(i).getMaSP())){
+                ten0 = sanPhamss.get(i).getTenSP();
             }
         }
 
@@ -263,9 +266,9 @@ public class StatisticalFragment extends Fragment {
             tongSL += arrayList.get(i).getSoLuongMua();
         }
 
-        float other = tongSL - (arrayList.get(1).getSoLuongMua() + arrayList.get(2).getSoLuongMua());
+        float other = tongSL - (arrayList.get(1).getSoLuongMua() + arrayList.get(2).getSoLuongMua() + arrayList.get(0).getSoLuongMua());
         ArrayList<PieEntry> pieEntries = new ArrayList<>();
-        pieEntries.add(new PieEntry(arrayList.get(0).getSoLuongMua(), tenSP));
+        pieEntries.add(new PieEntry(arrayList.get(0).getSoLuongMua(), ten0));
         pieEntries.add(new PieEntry(arrayList.get(1).getSoLuongMua(), ten1));
         pieEntries.add(new PieEntry(arrayList.get(2).getSoLuongMua(), ten2));
         pieEntries.add(new PieEntry(other, "Loại khác"));

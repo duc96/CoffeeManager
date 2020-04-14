@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import vn.com.duan1.coffeemanagement.DAO.SanPhamDAO;
+import vn.com.duan1.coffeemanagement.DataModel.HoaDonChiTiet;
 import vn.com.duan1.coffeemanagement.DataModel.SanPham;
 import vn.com.duan1.coffeemanagement.Menu_item.DrinkFragment;
 import vn.com.duan1.coffeemanagement.Menu_item.FoodFragment;
@@ -26,6 +27,7 @@ import vn.com.duan1.coffeemanagement.Menu_item.OthersFragment;
 import vn.com.duan1.coffeemanagement.R;
 
 import static vn.com.duan1.coffeemanagement.MainActivity.idAfterLogin;
+import static vn.com.duan1.coffeemanagement.Menu_item.MenuFragment.hdcts;
 
 public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamViewHolder> {
 
@@ -37,6 +39,8 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
     private RecyclerView rcImage;
     private RecyclerView.LayoutManager layoutManager;
     private ImageAdapter imageAdapter;
+
+    public static int stt = 0;
 
     public SanPhamAdapter(ArrayList<SanPham> sanPhams, Context context, Fragment fr) {
         this.sanPhams = sanPhams;
@@ -194,7 +198,7 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
                 View mv = LayoutInflater.from(context).inflate(R.layout.one_item_cart, null);
 
                 ImageView ig = mv.findViewById(R.id.iv_ItemPhoto);
-                TextView ten = mv.findViewById(R.id.tv_ItemName);
+                final TextView ten = mv.findViewById(R.id.tv_ItemName);
                 final TextView soluong = mv.findViewById(R.id.tv_ItemNumber);
                 ImageView minus = mv.findViewById(R.id.minus);
                 ImageView plus = mv.findViewById(R.id.plus);
@@ -207,7 +211,7 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
                     @Override
                     public void onClick(View v) {
                         int num = Integer.parseInt(soluong.getText().toString());
-                        if (num - 1 > 1 || num - 1 == 1) {
+                        if (num - 1 >= 1 ) {
                             soluong.setText(num - 1 + "");
                         }
                     }
@@ -226,6 +230,15 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
                         .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+
+                                stt ++;
+                                String masp = ten.getText().toString();
+                                int soluongmua = Integer.parseInt(soluong.getText().toString());
+
+                                HoaDonChiTiet donChiTiet = new HoaDonChiTiet("hdct"+stt,masp,soluongmua);
+                                hdcts.add(donChiTiet);
+
+                                System.out.println("stt"+stt);
 
                             }
                         })

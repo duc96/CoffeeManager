@@ -25,15 +25,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-
 import java.util.ArrayList;
 
 import vn.com.duan1.coffeemanagement.Adapter.ImageAdapter;
 import vn.com.duan1.coffeemanagement.DAO.SanPhamDAO;
+import vn.com.duan1.coffeemanagement.DataModel.HoaDonChiTiet;
 import vn.com.duan1.coffeemanagement.DataModel.SanPham;
 import vn.com.duan1.coffeemanagement.R;
 
 import static vn.com.duan1.coffeemanagement.MainActivity.idAfterLogin;
+import static vn.com.duan1.coffeemanagement.MainActivity.sanPhamss;
 
 public class MenuFragment extends Fragment {
 
@@ -55,9 +56,9 @@ public class MenuFragment extends Fragment {
     public static ArrayList<SanPham> khacs = new ArrayList<>();
     DatabaseReference mdata;
     public static ArrayList<SanPham> sanphamss = new ArrayList<>();
+    public static ArrayList<HoaDonChiTiet> hdcts = new ArrayList<HoaDonChiTiet>();
 
     public MenuFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -65,6 +66,7 @@ public class MenuFragment extends Fragment {
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_menu, null);
 
+        // map cac thanh phan cua layout
         viewPagerMenu = view.findViewById(R.id.viewpagerMenu);
         tabLayoutMenu = view.findViewById(R.id.tablayoutMenu);
         sanPhamDAO = new SanPhamDAO(getActivity());
@@ -72,6 +74,8 @@ public class MenuFragment extends Fragment {
         flAdd = view.findViewById(R.id.add);
         MyFragmentAdapter adapter1 = new MyFragmentAdapter(getChildFragmentManager());
         viewPagerMenu.setAdapter(adapter1);
+
+        // set tieu de cho cac tablayout
         tabLayoutMenu.addTab(tabLayoutMenu.newTab().setText("Nước uống"));
         tabLayoutMenu.addTab(tabLayoutMenu.newTab().setText("Thức Ăn"));
         tabLayoutMenu.addTab(tabLayoutMenu.newTab().setText("Khác"));
@@ -96,6 +100,24 @@ public class MenuFragment extends Fragment {
             }
         });
 
+        // doc danh sach san pham da co tren database
+        mdata = FirebaseDatabase.getInstance().getReference("sanpham");
+        mdata.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                sanphamss.clear();
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    SanPham sanPham = data.getValue(SanPham.class);
+                    sanphamss.add(sanPham);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+
+
         if (idAfterLogin.substring(0, 2).equals("nv")) {
             flAdd.setEnabled(false);
             flAdd.setVisibility(View.GONE);
@@ -105,22 +127,7 @@ public class MenuFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
 
-                    mdata = FirebaseDatabase.getInstance().getReference("sanpham");
-                    mdata.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            sanphamss.clear();
-                            for (DataSnapshot data : dataSnapshot.getChildren()) {
-                                SanPham sanPham = data.getValue(SanPham.class);
-                                sanphamss.add(sanPham);
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                        }
-                    });
-
+                    // chia san pham theo loai
                     drinks.clear();
                     foods.clear();
                     khacs.clear();
@@ -137,10 +144,11 @@ public class MenuFragment extends Fragment {
                         }
                     }
 
-                    System.out.println("drinks: " + drinks);
-                    System.out.println("foods: " + foods);
-                    System.out.println("khacs: " + khacs);
+                    System.out.println("drinks: " + drinks.size());
+                    System.out.println("foods: " + foods.size());
+                    System.out.println("khacs: " + khacs.size());
 
+                    // lay loai cho san pham
                     if (tabLayoutMenu.getSelectedTabPosition() == 0) {
                         loai = "drink";
                     } else if (tabLayoutMenu.getSelectedTabPosition() == 1) {
@@ -149,38 +157,41 @@ public class MenuFragment extends Fragment {
                         loai = "khac";
                     }
 
-                    size = 0;
+                    // lay masp
                     if (tabLayoutMenu.getSelectedTabPosition() == 0) {
                         size = drinks.size();
                         maSP = "NU" + size;
-                        for (int i = 0; i < size; i++) {
-                            if (drinks.get(i).getMaSP().equals(maSP)) {
-                                size++;
-                                maSP = "NU" + size;
-                            }
-                        }
                     }
                     if (tabLayoutMenu.getSelectedTabPosition() == 1) {
                         size = foods.size();
                         maSP = "TA" + size;
-                        for (int i = 0; i < size; i++) {
-                            if (foods.get(i).getMaSP().equals(maSP)) {
-                                size++;
-                                maSP = "TA" + size;
-                            }
-                        }
+
                     }
                     if (tabLayoutMenu.getSelectedTabPosition() == 2) {
                         size = khacs.size();
                         maSP = "K" + size;
-                        for (int i = 0; i < size; i++) {
-                            if (khacs.get(i).getMaSP().equals(maSP)) {
-                                size++;
-                                maSP = "K" + size;
-                            }
+
+                    }
+                    for (int i = 0; i < drinks.size(); i++) {
+                        if (drinks.get(i).getMaSP().equals(maSP)) {
+                            size++;
+                            maSP = "NU" + size;
+                        }
+                    }
+                    for (int i = 0; i < foods.size(); i++) {
+                        if (foods.get(i).getMaSP().equals(maSP)) {
+                            size++;
+                            maSP = "TA" + size;
+                        }
+                    }
+                    for (int i = 0; i < khacs.size(); i++) {
+                        if (khacs.get(i).getMaSP().equals(maSP)) {
+                            size++;
+                            maSP = "K" + size;
                         }
                     }
 
+                    // tao  dialog khi an nut add
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                     final LayoutInflater inf = getLayoutInflater();
                     final View viewdialog = inf.inflate(R.layout.dialog_add_menu, null);
@@ -190,6 +201,7 @@ public class MenuFragment extends Fragment {
                     final EditText edtItemName = viewdialog.findViewById(R.id.edtItemName);
                     final EditText edtItemPrice = viewdialog.findViewById(R.id.edtItemPrice);
 
+                    // chon anh cho san pham
                     ivPhoto.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -202,7 +214,7 @@ public class MenuFragment extends Fragment {
                             rcImage.setHasFixedSize(true);
                             rcImage.setLayoutManager(layoutManager);
 
-                            //chon list anh cho tung fragment
+                            //chon list anh cho tung loai san pham
                             if (tabLayoutMenu.getSelectedTabPosition() == 0) {
                                 imageAdapter = new ImageAdapter(DrinkFragment.images, getContext());
                             } else if (tabLayoutMenu.getSelectedTabPosition() == 1) {
@@ -211,9 +223,9 @@ public class MenuFragment extends Fragment {
                                 imageAdapter = new ImageAdapter(OthersFragment.images, getContext());
                             }
 
-                            //gan list anh len recycleview
                             rcImage.setAdapter(imageAdapter);
 
+                            // gan anh cho san pham
                             if (ImageAdapter.id_image != 0) {
                                 ivPhoto.setImageResource(ImageAdapter.id_image);
                             } else {
@@ -246,6 +258,7 @@ public class MenuFragment extends Fragment {
                             String Price = edtItemPrice.getText().toString();
 
                             sanPhamDAO.themSanPham(new SanPham(maSP, loai, ImageAdapter.id_image, Name, Integer.parseInt(Price)));
+
                         }
                     });
 
@@ -265,7 +278,17 @@ public class MenuFragment extends Fragment {
         flCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                View view1 = LayoutInflater.from(getContext()).inflate(R.layout.dialog_cart,null);
+                builder.setView(view1)
+                        .setTitle("Các hóa đơn chưa thanh toán")
+                        .setNegativeButton("Quay lại", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
 
+                            }
+                        });
+                builder.show();
             }
         });
 

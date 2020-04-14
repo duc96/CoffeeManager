@@ -32,7 +32,7 @@ public class BillFragment extends Fragment {
         MyFragmentAdapter adapter2 =new MyFragmentAdapter(getChildFragmentManager());
         viewPagerBill.setAdapter(adapter2);
         tabLayoutBill.addTab(tabLayoutBill.newTab().setText("Lịch sử"));
-        tabLayoutBill.addTab(tabLayoutBill.newTab().setText("Chi phí"));
+        //tabLayoutBill.addTab(tabLayoutBill.newTab().setText("Chi phí"));
         tabLayoutBill.addTab(tabLayoutBill.newTab().setText("Thống kê"));
 
         viewPagerBill.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayoutBill));
@@ -72,10 +72,10 @@ public class BillFragment extends Fragment {
                 case 0:
                     fragment=new BillHistoryFragment();
                     break;
+//                case 1:
+//                    fragment=new CostFragment();
+//                    break;
                 case 1:
-                    fragment=new CostFragment();
-                    break;
-                case 2:
                     fragment=new StatisticalFragment();
                     break;
                 default:
@@ -86,7 +86,7 @@ public class BillFragment extends Fragment {
 
         @Override
         public int getCount() {
-            return 3;
+            return 2;
         }
     }
 
