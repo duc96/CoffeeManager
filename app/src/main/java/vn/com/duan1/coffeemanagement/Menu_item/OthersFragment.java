@@ -5,15 +5,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+
 import vn.com.duan1.coffeemanagement.Adapter.SanPhamAdapter;
+import vn.com.duan1.coffeemanagement.DataModel.SanPham;
 import vn.com.duan1.coffeemanagement.R;
 
-//import static vn.com.duan1.coffeemanagement.MainActivity.khacs;
-import static vn.com.duan1.coffeemanagement.MainActivity.sanPhamss;
 import static vn.com.duan1.coffeemanagement.Menu_item.MenuFragment.khacs;
 
 
@@ -35,6 +43,8 @@ public class OthersFragment extends Fragment {
             R.mipmap.k_traicay_to
     };
 
+    DatabaseReference databaseReference;
+    ArrayList<SanPham> khac;
     public OthersFragment() {
     }
 
@@ -46,9 +56,32 @@ public class OthersFragment extends Fragment {
         rvOthers = view.findViewById(R.id.rvOthers);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         rvOthers.setLayoutManager(linearLayoutManager);
-        sanPhamAdapter = new SanPhamAdapter(khacs, getContext(), this);
+
+        khac = new ArrayList<>();
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("sanpham");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                khac.clear();
+
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    SanPham item = data.getValue(SanPham.class);
+                    if (item.getMaLoai().equals("khac")) {
+                        khac.add(item);
+                    }
+                }
+                capnhatgiaodien();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        sanPhamAdapter = new SanPhamAdapter(khac, getContext(), this);
         rvOthers.setAdapter(sanPhamAdapter);
-        capnhatgiaodien();
         return view;
     }
 

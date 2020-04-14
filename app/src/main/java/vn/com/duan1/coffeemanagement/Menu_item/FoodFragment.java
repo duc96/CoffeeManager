@@ -5,16 +5,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+
 import vn.com.duan1.coffeemanagement.Adapter.SanPhamAdapter;
+import vn.com.duan1.coffeemanagement.DataModel.SanPham;
 import vn.com.duan1.coffeemanagement.R;
-
-//import static vn.com.duan1.coffeemanagement.MainActivity.foods;
-import static vn.com.duan1.coffeemanagement.Menu_item.MenuFragment.foods;
-
 
 public class FoodFragment extends Fragment {
     RecyclerView rvFood;
@@ -39,6 +45,9 @@ public class FoodFragment extends Fragment {
             R.mipmap.ta_soup_raucu
     };
 
+    DatabaseReference databaseReference;
+    public ArrayList<SanPham> food;
+
     public FoodFragment() {
 
     }
@@ -52,14 +61,36 @@ public class FoodFragment extends Fragment {
         rvFood = view.findViewById(R.id.rvFood);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         rvFood.setLayoutManager(linearLayoutManager);
-        sanPhamAdapter = new SanPhamAdapter(foods, getContext(), this);
+        food = new ArrayList<>();
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("sanpham");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                food.clear();
+
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    SanPham item = data.getValue(SanPham.class);
+                    if (item.getMaLoai().equals("food")) {
+                        food.add(item);
+                    }
+                }
+                capnhatgiaodien();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        sanPhamAdapter = new SanPhamAdapter(food, getContext(), this);
         rvFood.setAdapter(sanPhamAdapter);
-        capnhatgiaodien();
         return view;
     }
 
     public void capnhatgiaodien() {
-        sanPhamAdapter.notifyItemInserted(foods.size());
+        sanPhamAdapter.notifyItemInserted(food.size());
         sanPhamAdapter.notifyDataSetChanged();
 
     }

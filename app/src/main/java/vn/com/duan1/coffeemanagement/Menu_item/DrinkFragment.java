@@ -5,16 +5,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+
 import vn.com.duan1.coffeemanagement.Adapter.SanPhamAdapter;
+import vn.com.duan1.coffeemanagement.DataModel.SanPham;
 import vn.com.duan1.coffeemanagement.R;
-
-//import static vn.com.duan1.coffeemanagement.MainActivity.drinks;
-import static vn.com.duan1.coffeemanagement.MainActivity.sanPhamss;
-import static vn.com.duan1.coffeemanagement.Menu_item.MenuFragment.drinks;
-
 
 public class DrinkFragment extends Fragment {
     private RecyclerView rvDrink;
@@ -38,10 +44,11 @@ public class DrinkFragment extends Fragment {
             R.mipmap.sting
     };
 
-    private RecyclerView.LayoutManager layoutManager;
+    DatabaseReference databaseReference;
+    public ArrayList<SanPham> drink;
 
     public DrinkFragment() {
-        // Required empty public constructor
+
     }
 
     @Override
@@ -54,16 +61,38 @@ public class DrinkFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         rvDrink.setLayoutManager(linearLayoutManager);
 
-        sanPhamAdapter = new SanPhamAdapter(drinks, getContext(), this);
-        rvDrink.setAdapter(sanPhamAdapter);
+        drink = new ArrayList<>();
 
-        capnhatgiaodien();
+        databaseReference = FirebaseDatabase.getInstance().getReference("sanpham");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                drink.clear();
+
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    SanPham item = data.getValue(SanPham.class);
+                    if (item.getMaLoai().equals("drink")) {
+                        drink.add(item);
+                    }
+                }
+                capnhatgiaodien();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        sanPhamAdapter = new SanPhamAdapter(drink, getContext(), this);
+
+        rvDrink.setAdapter(sanPhamAdapter);
 
         return view;
     }
 
     public void capnhatgiaodien() {
-        sanPhamAdapter.notifyItemInserted(drinks.size());
+        sanPhamAdapter.notifyItemInserted(drink.size());
         sanPhamAdapter.notifyDataSetChanged();
     }
 

@@ -63,7 +63,7 @@ public class SanPhamDAO {
                     SanPham sanPham = data.getValue(SanPham.class);
                     sanPhams.add(sanPham);
                 }
-        //        drinkFragment.capnhatgiaodien();
+                drinkFragment.capnhatgiaodien();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
