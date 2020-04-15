@@ -35,6 +35,7 @@ import java.util.Date;
 
 import vn.com.duan1.coffeemanagement.Adapter.ImageAdapter;
 import vn.com.duan1.coffeemanagement.Adapter.ListViewCartAdapter;
+import vn.com.duan1.coffeemanagement.DAO.HoaDonChiTietDAO;
 import vn.com.duan1.coffeemanagement.DAO.HoaDonDAO;
 import vn.com.duan1.coffeemanagement.DAO.SanPhamDAO;
 import vn.com.duan1.coffeemanagement.DataModel.CartHDCT;
@@ -341,6 +342,28 @@ public class MenuFragment extends Fragment {
 
                                 HoaDonDAO hoaDonDAO = new HoaDonDAO(getContext());
                                 hoaDonDAO.insert(new HoaDon(maHD.getText().toString(),ngaylaphd.getText().toString(),nguoilaphd.getText().toString()));
+
+                                HoaDonChiTietDAO hoaDonChiTietDAO = new HoaDonChiTietDAO(getContext());
+                                String mahdct = "null";
+                                String mahd = "null";
+                                String masp = "null";
+                                int soluongmua;
+                                for (int i = 0; i < hdcts.size(); i++){
+                                    mahdct = "hdct"+i;
+                                    mahd = maHD.getText().toString();
+                                    for (int j = 0; j < sanPhamss.size(); j++){
+                                            if (hdcts.get(i).getTenSP().equals(sanPhamss.get(j).getTenSP())){
+                                                masp = sanPhamss.get(j).getMaSP();
+                                            }
+                                        }
+                                    soluongmua = hdcts.get(i).getSoLuongMua();
+
+                                    hoaDonChiTietDAO.insert(new HoaDonChiTiet(mahdct,mahd,masp,soluongmua));
+                                }
+
+                                hdcts.clear();
+
+
                             }
                         })
                         .setNegativeButton("Quay lại", new DialogInterface.OnClickListener() {
