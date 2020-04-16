@@ -327,7 +327,7 @@ public class MenuFragment extends Fragment {
                 nguoilaphd.setText(name);
 
                 int stt = 0;
-                String ma = "0";
+                String ma = "HD0";
                 for (int i = 0; i < hoaDons.size(); i++){
                     stt = hoaDons.size();
                      ma = "HD" + stt;
