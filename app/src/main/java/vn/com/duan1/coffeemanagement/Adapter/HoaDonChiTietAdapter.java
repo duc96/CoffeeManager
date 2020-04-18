@@ -13,7 +13,10 @@ import androidx.annotation.Nullable;
 import java.util.List;
 
 import vn.com.duan1.coffeemanagement.DataModel.HoaDonChiTiet;
+import vn.com.duan1.coffeemanagement.DataModel.SanPham;
 import vn.com.duan1.coffeemanagement.R;
+
+import static vn.com.duan1.coffeemanagement.MainActivity.sanPhamss;
 
 public class HoaDonChiTietAdapter extends ArrayAdapter<HoaDonChiTiet> {
 
@@ -32,11 +35,18 @@ public class HoaDonChiTietAdapter extends ArrayAdapter<HoaDonChiTiet> {
         TextView tvMaHDCT = convertView.findViewById(R.id.tv_maHDCT);
         TextView tvTenSP = convertView.findViewById(R.id.tv_TenSP);
         TextView tvSoLuong = convertView.findViewById(R.id.tv_SoLuong);
-
         tvMaHDCT.setText("Số hóa đơn ct: " + hoaDonChiTiet.getMaHDCT());
         tvSoLuong.setText("Số lượng : " + hoaDonChiTiet.getSoLuongMua());
-        tvTenSP.setText("Mã sản phẩm: " + hoaDonChiTiet.getMaSP());
-
+        tvTenSP.setText("Tên sản phẩm: " + getTenSP(hoaDonChiTiet.getMaSP()));
         return convertView;
+    }
+
+    public String getTenSP(String maSP){
+        for(SanPham  sanPham : sanPhamss){
+            if(maSP.equalsIgnoreCase(sanPham.getMaSP())){
+                return sanPham.getTenSP();
+            }
+        }
+        return null;
     }
 }
