@@ -34,8 +34,8 @@ public class HoaDonChiTietAdapter extends ArrayAdapter<HoaDonChiTiet> {
         TextView tvSoLuong = convertView.findViewById(R.id.tv_SoLuong);
 
         tvMaHDCT.setText("Số hóa đơn ct: " + hoaDonChiTiet.getMaHDCT());
-        tvSoLuong.setText("Số lượng: " + hoaDonChiTiet.getSoLuongMua());
-
+        tvSoLuong.setText("Số lượng : " + hoaDonChiTiet.getSoLuongMua());
+        tvTenSP.setText("Mã sản phẩm: " + hoaDonChiTiet.getMaSP());
 
         return convertView;
     }

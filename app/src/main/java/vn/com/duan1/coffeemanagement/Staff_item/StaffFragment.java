@@ -90,8 +90,8 @@ public class StaffFragment extends Fragment {
         final EditText edtSTT = viewdialog1.findViewById(R.id.edtSTT);
         final EditText edtAddPassword = viewdialog1.findViewById(R.id.edtAddPassword);
         ArrayList<String> chucVu = new ArrayList<>();
-        chucVu.add("Quản lý - ql");
         chucVu.add("Nhân viên - nv");
+        chucVu.add("Quản lý - ql");
         ArrayAdapter arrayAdapter = new ArrayAdapter(viewdialog1.getContext(), android.R.layout.simple_spinner_item, chucVu);
         spinner.setAdapter(arrayAdapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
