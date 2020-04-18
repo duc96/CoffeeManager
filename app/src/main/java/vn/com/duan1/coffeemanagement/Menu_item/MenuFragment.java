@@ -6,10 +6,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -26,14 +28,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
-import vn.com.duan1.coffeemanagement.Adapter.ImageAdapter;
+//import vn.com.duan1.coffeemanagement.Adapter.ImageAdapter;
 import vn.com.duan1.coffeemanagement.Adapter.ListViewCartAdapter;
 import vn.com.duan1.coffeemanagement.DAO.HoaDonChiTietDAO;
 import vn.com.duan1.coffeemanagement.DAO.HoaDonDAO;
@@ -41,6 +43,7 @@ import vn.com.duan1.coffeemanagement.DAO.SanPhamDAO;
 import vn.com.duan1.coffeemanagement.DataModel.CartHDCT;
 import vn.com.duan1.coffeemanagement.DataModel.HoaDon;
 import vn.com.duan1.coffeemanagement.DataModel.HoaDonChiTiet;
+import vn.com.duan1.coffeemanagement.DataModel.NonUI;
 import vn.com.duan1.coffeemanagement.DataModel.SanPham;
 import vn.com.duan1.coffeemanagement.R;
 
@@ -54,6 +57,7 @@ public class MenuFragment extends Fragment {
     private ViewPager viewPagerMenu;
     private TabLayout tabLayoutMenu;
     private RecyclerView.LayoutManager layoutManager;
+    NonUI nonUI;
 
     String loai, maSP;
     int size = 0;
@@ -62,7 +66,7 @@ public class MenuFragment extends Fragment {
     private FloatingActionButton flAdd;
     private FloatingActionButton flCart;
     private SanPhamDAO sanPhamDAO;
-    private ImageAdapter imageAdapter;
+//    private ImageAdapter imageAdapter;
 
     public static ArrayList<SanPham> drinks = new ArrayList<>();
     public static ArrayList<SanPham> foods = new ArrayList<>();
@@ -130,7 +134,6 @@ public class MenuFragment extends Fragment {
             }
         });
 
-
         if (idAfterLogin.substring(0, 2).equals("nv")) {
             flAdd.setEnabled(false);
             flAdd.setVisibility(View.GONE);
@@ -175,28 +178,31 @@ public class MenuFragment extends Fragment {
                         size = drinks.size();
                         maSP = "NU" + size;
                     }
+
                     if (tabLayoutMenu.getSelectedTabPosition() == 1) {
                         size = foods.size();
                         maSP = "TA" + size;
-
                     }
+
                     if (tabLayoutMenu.getSelectedTabPosition() == 2) {
                         size = khacs.size();
                         maSP = "K" + size;
-
                     }
+
                     for (int i = 0; i < drinks.size(); i++) {
                         if (drinks.get(i).getMaSP().equals(maSP)) {
                             size++;
                             maSP = "NU" + size;
                         }
                     }
+
                     for (int i = 0; i < foods.size(); i++) {
                         if (foods.get(i).getMaSP().equals(maSP)) {
                             size++;
                             maSP = "TA" + size;
                         }
                     }
+
                     for (int i = 0; i < khacs.size(); i++) {
                         if (khacs.get(i).getMaSP().equals(maSP)) {
                             size++;
@@ -210,58 +216,74 @@ public class MenuFragment extends Fragment {
                     final View viewdialog = inf.inflate(R.layout.dialog_add_menu, null);
                     builder.setView(viewdialog);
 
-                    final ImageView ivPhoto = viewdialog.findViewById(R.id.ivPhoto);
+//                    final ImageView ivPhoto = viewdialog.findViewById(R.id.ivPhoto);
+
+                    final EditText edtItemLinkImage = viewdialog.findViewById(R.id.edtChonLinkAnh);
+                    final ImageView imvAnh = viewdialog.findViewById(R.id.imvAnh);
+                    final Button btnKiemTra = viewdialog.findViewById(R.id.btnCheck);
                     final EditText edtItemName = viewdialog.findViewById(R.id.edtItemName);
                     final EditText edtItemPrice = viewdialog.findViewById(R.id.edtItemPrice);
 
-                    // chon anh cho san pham
-                    ivPhoto.setOnClickListener(new View.OnClickListener() {
+                    btnKiemTra.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-
-                            //gan list anh len layout
-                            AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
-                            View view2 = LayoutInflater.from(viewdialog.getContext()).inflate(R.layout.rv_image, null);
-                            rcImage = view2.findViewById(R.id.rcImage);
-                            layoutManager = new GridLayoutManager(viewdialog.getContext(), 2);
-                            rcImage.setHasFixedSize(true);
-                            rcImage.setLayoutManager(layoutManager);
-
-                            //chon list anh cho tung loai san pham
-                            if (tabLayoutMenu.getSelectedTabPosition() == 0) {
-                                imageAdapter = new ImageAdapter(DrinkFragment.images, getContext());
-                            } else if (tabLayoutMenu.getSelectedTabPosition() == 1) {
-                                imageAdapter = new ImageAdapter(FoodFragment.images, getContext());
-                            } else {
-                                imageAdapter = new ImageAdapter(OthersFragment.images, getContext());
+                            if (edtItemLinkImage.getText().toString().equals("")){
+                                nonUI = new NonUI(getContext());
+                                nonUI.toast("Bạn chưa nhập link hình ảnh");
+                            }else{
+                                Picasso.with(getContext()).load(edtItemLinkImage.getText().toString()).into(imvAnh);
                             }
 
-                            rcImage.setAdapter(imageAdapter);
-
-                            // gan anh cho san pham
-                            if (ImageAdapter.id_image != 0) {
-                                ivPhoto.setImageResource(ImageAdapter.id_image);
-                            } else {
-                                ivPhoto.setImageResource(R.drawable.ic_camera);
-                            }
-
-                            builder1.setView(view2)
-                                    .setTitle("Chọn ảnh")
-                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            ivPhoto.setImageResource(ImageAdapter.id_image);
-                                        }
-                                    })
-                                    .setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-
-                                        }
-                                    });
-                            builder1.show();
                         }
                     });
+                    // chon anh cho san pham
+//                    ivPhoto.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//
+//                            //gan list anh len layout
+//                            AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
+//                            View view2 = LayoutInflater.from(viewdialog.getContext()).inflate(R.layout.rv_image, null);
+//                            rcImage = view2.findViewById(R.id.rcImage);
+//                            layoutManager = new GridLayoutManager(viewdialog.getContext(), 2);
+//                            rcImage.setHasFixedSize(true);
+//                            rcImage.setLayoutManager(layoutManager);
+//
+//                            //chon list anh cho tung loai san pham
+//                            if (tabLayoutMenu.getSelectedTabPosition() == 0) {
+//                                imageAdapter = new ImageAdapter(DrinkFragment.images, getContext());
+//                            } else if (tabLayoutMenu.getSelectedTabPosition() == 1) {
+//                                imageAdapter = new ImageAdapter(FoodFragment.images, getContext());
+//                            } else {
+//                                imageAdapter = new ImageAdapter(OthersFragment.images, getContext());
+//                            }
+//
+//                            rcImage.setAdapter(imageAdapter);
+//
+//                            // gan anh cho san pham
+//                            if (ImageAdapter.id_image != 0) {
+//                                ivPhoto.setImageResource(ImageAdapter.id_image);
+//                            } else {
+//                                ivPhoto.setImageResource(R.drawable.ic_camera);
+//                            }
+//
+//                            builder1.setView(view2)
+//                                    .setTitle("Chọn ảnh")
+//                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+//                                        @Override
+//                                        public void onClick(DialogInterface dialog, int which) {
+//                                            ivPhoto.setImageResource(ImageAdapter.id_image);
+//                                        }
+//                                    })
+//                                    .setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+//                                        @Override
+//                                        public void onClick(DialogInterface dialog, int which) {
+//
+//                                        }
+//                                    });
+//                            builder1.show();
+//                        }
+//                    });
 
                     builder.setPositiveButton("Thêm", new DialogInterface.OnClickListener() {
                         @Override
@@ -269,9 +291,11 @@ public class MenuFragment extends Fragment {
 
                             String Name = edtItemName.getText().toString();
                             String Price = edtItemPrice.getText().toString();
+                            String linkAnh = edtItemLinkImage.getText().toString();
 
-                            sanPhamDAO.themSanPham(new SanPham(maSP, loai, ImageAdapter.id_image, Name, Integer.parseInt(Price)));
+//                            sanPhamDAO.themSanPham(new SanPham(maSP, loai, ImageAdapter.id_image, Name, Integer.parseInt(Price)));
 
+                            sanPhamDAO.themSanPham(new SanPham(maSP,loai,linkAnh,Name,Integer.parseInt(Price)));
                         }
                     });
 

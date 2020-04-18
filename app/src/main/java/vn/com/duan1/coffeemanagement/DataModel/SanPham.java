@@ -3,14 +3,15 @@ package vn.com.duan1.coffeemanagement.DataModel;
 public class SanPham {
     private String maSP;
     private String maLoai;
-    private int hinhSP;
+//    private int hinhSP;
     private String tenSP;
     private int giaSP;
+    private String hinhSP;
 
     public SanPham(){
     }
 
-    public SanPham(int hinhSP, String tenSP) {
+    public SanPham(String hinhSP, String tenSP) {
         this.hinhSP = hinhSP;
         this.tenSP = tenSP;
     }
@@ -22,7 +23,7 @@ public class SanPham {
         this.giaSP = giaSP;
     }
 
-    public SanPham(String maSP, String maLoai, int hinhSP, String tenSP, int giaSP) {
+    public SanPham(String maSP, String maLoai, String hinhSP, String tenSP, int giaSP) {
         this.maSP = maSP;
         this.maLoai = maLoai;
         this.hinhSP = hinhSP;
@@ -30,11 +31,11 @@ public class SanPham {
         this.giaSP = giaSP;
     }
 
-    public int getHinhSP() {
+    public String getHinhSP() {
         return hinhSP;
     }
 
-    public void setHinhSP(int hinhSP) {
+    public void setHinhSP(String hinhSP) {
         this.hinhSP = hinhSP;
     }
 

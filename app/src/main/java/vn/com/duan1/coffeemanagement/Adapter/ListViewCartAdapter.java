@@ -9,10 +9,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import vn.com.duan1.coffeemanagement.DataModel.CartHDCT;
 import vn.com.duan1.coffeemanagement.R;

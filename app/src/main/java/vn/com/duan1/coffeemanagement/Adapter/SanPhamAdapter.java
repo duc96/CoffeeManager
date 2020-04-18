@@ -16,11 +16,14 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 import vn.com.duan1.coffeemanagement.DAO.SanPhamDAO;
 import vn.com.duan1.coffeemanagement.DataModel.CartHDCT;
 import vn.com.duan1.coffeemanagement.DataModel.HoaDonChiTiet;
+import vn.com.duan1.coffeemanagement.DataModel.NonUI;
 import vn.com.duan1.coffeemanagement.DataModel.SanPham;
 import vn.com.duan1.coffeemanagement.Menu_item.DrinkFragment;
 import vn.com.duan1.coffeemanagement.Menu_item.FoodFragment;
@@ -42,6 +45,7 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
     private ImageAdapter imageAdapter;
 
     public static int stt = 0;
+    NonUI nonUI;
 
     public SanPhamAdapter(ArrayList<SanPham> sanPhams, Context context, Fragment fr) {
         this.sanPhams = sanPhams;
@@ -64,7 +68,8 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
 
         holder.ten.setText(sp.getTenSP());
         holder.gia.setText(sp.getGiaSP() + "");
-        holder.hinh.setImageResource(sp.getHinhSP());
+//        holder.hinh.setImageResource(sp.getHinhSP());
+        Picasso.with(context).load(sp.getHinhSP()).into(holder.hinh);
 
         if (idAfterLogin.substring(0, 2).equals("nv")) {
             holder.iv_xoa.setEnabled(false);
@@ -103,61 +108,76 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
                     AlertDialog.Builder builder = new AlertDialog.Builder(context);
                     final View view = LayoutInflater.from(context).inflate(R.layout.dialog_update_menu, null);
 
-                    final ImageView ivPhoto = view.findViewById(R.id.iv_updatePhoto);
-                    final EditText edtItemName = view.findViewById(R.id.edt_updateItemName);
-                    final EditText edtItemPrice = view.findViewById(R.id.edt_updateItemPrice);
+                    final EditText edtUpdateAnh = view.findViewById(R.id.edtUpdateLinkAnh);
+                    final ImageView ivPhoto = view.findViewById(R.id.imvUpdateAnh);
+                    final EditText edtItemName = view.findViewById(R.id.edtUpdateItemName);
+                    final EditText edtItemPrice = view.findViewById(R.id.edtUpdateItemPrice);
+                    final Button btnUpdateCheck = view.findViewById(R.id.btnUpdateCheck);
 
-                    ivPhoto.setImageResource(sp.getHinhSP());
+                    edtUpdateAnh.setHint(sp.getHinhSP());
+                    Picasso.with(context).load(sp.getHinhSP()).into(ivPhoto);
                     edtItemName.setHint(sp.getTenSP());
                     edtItemPrice.setHint(sp.getGiaSP() + "");
 
-                    ivPhoto.setOnClickListener(new View.OnClickListener() {
+                    btnUpdateCheck.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-
-                            //gan list anh len layout
-                            AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
-                            View view2 = LayoutInflater.from(view.getContext()).inflate(R.layout.rv_image, null);
-                            rcImage = view2.findViewById(R.id.rcImage);
-                            layoutManager = new GridLayoutManager(view.getContext(), 2);
-                            rcImage.setHasFixedSize(true);
-                            rcImage.setLayoutManager(layoutManager);
-
-                            //chon list anh cho tung fragment
-                            if (sp.getMaLoai().equals("drink")) {
-                                imageAdapter = new ImageAdapter(DrinkFragment.images, context);
-                            } else if (sp.getMaLoai().equals("food")) {
-                                imageAdapter = new ImageAdapter(FoodFragment.images, context);
-                            } else {
-                                imageAdapter = new ImageAdapter(OthersFragment.images, context);
+                            if (edtUpdateAnh.getText().toString().equals("")){
+                                nonUI = new NonUI(context);
+                                nonUI.toast("Bạn chưa nhập link hình ảnh");
+                            }else{
+                                Picasso.with(context).load(edtUpdateAnh.getText().toString()).into(ivPhoto);
                             }
 
-                            //gan list anh len recycleview
-                            rcImage.setAdapter(imageAdapter);
-
-                            if (ImageAdapter.id_image != 0) {
-                                ivPhoto.setImageResource(ImageAdapter.id_image);
-                            } else {
-                                ivPhoto.setImageResource(R.drawable.ic_camera);
-                            }
-
-                            builder1.setView(view2)
-                                    .setTitle("Chọn ảnh")
-                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            ivPhoto.setImageResource(ImageAdapter.id_image);
-                                        }
-                                    })
-                                    .setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-
-                                        }
-                                    });
-                            builder1.show();
                         }
                     });
+//                    ivPhoto.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//
+//                            //gan list anh len layout
+//                            AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
+//                            View view2 = LayoutInflater.from(view.getContext()).inflate(R.layout.rv_image, null);
+//                            rcImage = view2.findViewById(R.id.rcImage);
+//                            layoutManager = new GridLayoutManager(view.getContext(), 2);
+//                            rcImage.setHasFixedSize(true);
+//                            rcImage.setLayoutManager(layoutManager);
+//
+//                            //chon list anh cho tung fragment
+//                            if (sp.getMaLoai().equals("drink")) {
+//                                imageAdapter = new ImageAdapter(DrinkFragment.images, context);
+//                            } else if (sp.getMaLoai().equals("food")) {
+//                                imageAdapter = new ImageAdapter(FoodFragment.images, context);
+//                            } else {
+//                                imageAdapter = new ImageAdapter(OthersFragment.images, context);
+//                            }
+//
+//                            //gan list anh len recycleview
+//                            rcImage.setAdapter(imageAdapter);
+//
+//                            if (ImageAdapter.id_image != 0) {
+//                                ivPhoto.setImageResource(ImageAdapter.id_image);
+//                            } else {
+//                                ivPhoto.setImageResource(R.drawable.ic_camera);
+//                            }
+//
+//                            builder1.setView(view2)
+//                                    .setTitle("Chọn ảnh")
+//                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+//                                        @Override
+//                                        public void onClick(DialogInterface dialog, int which) {
+//                                            ivPhoto.setImageResource(ImageAdapter.id_image);
+//                                        }
+//                                    })
+//                                    .setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+//                                        @Override
+//                                        public void onClick(DialogInterface dialog, int which) {
+//
+//                                        }
+//                                    });
+//                            builder1.show();
+//                        }
+//                    });
 
                     builder.setView(view)
                             .setPositiveButton("Cập nhật", new DialogInterface.OnClickListener() {
@@ -167,15 +187,23 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
                                     String maSP = sp.getMaSP();
                                     String loai = sp.getMaLoai();
                                     String Name = edtItemName.getText().toString();
+                                    String hinh = edtUpdateAnh.getText().toString();
+                                    String Price = edtItemPrice.getText().toString();
+
                                     if (Name.equals("")) {
                                         Name = edtItemName.getHint().toString();
                                     }
-                                    String Price = edtItemPrice.getText().toString();
+
+                                    if (hinh.equals("")){
+                                        hinh = edtUpdateAnh.getHint().toString();
+                                    }
+
                                     if (Price.equals("")) {
                                         Price = edtItemPrice.getHint().toString();
                                     }
 
-                                    sanPhamDAO.capnhatSanPham(new SanPham(maSP, loai, ImageAdapter.id_image, Name, Integer.parseInt(Price)));
+                                    sanPhamDAO.capnhatSanPham(new SanPham(maSP, loai, hinh, Name, Integer.parseInt(Price)));
+//                                    sanPhamDAO.capnhatSanPham(new SanPham(maSP, loai, ImageAdapter.id_image, Name, Integer.parseInt(Price)));
                                 }
                             })
                             .setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
@@ -204,7 +232,8 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
                 ImageView minus = mv.findViewById(R.id.minus);
                 ImageView plus = mv.findViewById(R.id.plus);
 
-                ig.setImageResource(sp.getHinhSP());
+//                ig.setImageResource(sp.getHinhSP());
+                Picasso.with(context).load(sp.getHinhSP()).into(ig);
                 ten.setText(sp.getTenSP());
                 soluong.setText("1");
 

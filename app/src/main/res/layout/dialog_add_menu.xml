@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -11,48 +10,73 @@
         android:layout_height="50dp"
         android:background="@drawable/bg2"
         android:gravity="center"
-        android:paddingBottom="5dp"
         android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         android:text="THÊM THỰC ĐƠN"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
         android:textColor="#ffffff"
         android:textSize="20sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/tv_chonhinhanh"
+    <EditText
+        android:id="@+id/edtChonLinkAnh"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:gravity="center"
-        android:textStyle="bold"
+        android:hint="Nhập link hình ảnh"
         android:textSize="15dp"
-        android:text="Chọn ảnh minh họa cho đồ uống / thức ăn"
-        />
+        android:textStyle="bold" />
 
     <ImageView
-        android:id="@+id/ivPhoto"
+        android:id="@+id/imvAnh"
         android:layout_width="200dp"
         android:layout_height="200dp"
+        android:layout_margin="5dp"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/ic_camera"/>
+        android:src="@drawable/ic_camera" />
+
+    <Button
+        android:id="@+id/btnCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="kiểm tra" />
 
     <EditText
         android:id="@+id/edtItemName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:ems="10"
+        android:layout_margin="10dp"
         android:hint="Tên đồ uống / thức ăn"
         android:inputType="textPersonName" />
 
-    <EditText
-        android:id="@+id/edtItemPrice"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Giá tiền"
-        android:inputType="textPersonName" />
+        android:layout_margin="10dp"
+        android:orientation="horizontal"
+        android:weightSum="4">
+
+        <EditText
+            android:id="@+id/edtItemPrice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="3"
+            android:hint="Giá tiền"
+            android:inputType="number" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:text="VNĐ"
+            android:gravity="center|left"
+            android:paddingLeft="5dp"
+            />
+    </LinearLayout>
 
 
 </LinearLayout>

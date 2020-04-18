@@ -18,40 +18,65 @@
         android:textSize="20sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/tv_chonhinhanh"
+    <EditText
+        android:id="@+id/edtUpdateLinkAnh"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:gravity="center"
-        android:textStyle="bold"
+        android:hint="Nhập link hình ảnh"
         android:textSize="15dp"
-        android:text="Chọn ảnh minh họa cho đồ uống / thức ăn"
-        />
+        android:textStyle="bold" />
 
     <ImageView
-        android:id="@+id/iv_updatePhoto"
+        android:id="@+id/imvUpdateAnh"
         android:layout_width="200dp"
         android:layout_height="200dp"
+        android:layout_margin="5dp"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/ic_camera"/>
+        android:src="@drawable/ic_camera" />
+
+    <Button
+        android:id="@+id/btnUpdateCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="kiểm tra" />
 
     <EditText
-        android:id="@+id/edt_updateItemName"
+        android:id="@+id/edtUpdateItemName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:ems="10"
+        android:layout_margin="10dp"
         android:hint="Tên đồ uống / thức ăn"
         android:inputType="textPersonName" />
 
-    <EditText
-        android:id="@+id/edt_updateItemPrice"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Giá tiền"
-        android:inputType="textPersonName" />
+        android:layout_margin="10dp"
+        android:orientation="horizontal"
+        android:weightSum="4">
+
+        <EditText
+            android:id="@+id/edtUpdateItemPrice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="3"
+            android:hint="Giá tiền"
+            android:inputType="number" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:text="VNĐ"
+            android:gravity="center|left"
+            android:paddingLeft="5dp"
+            />
+    </LinearLayout>
 
 
 </LinearLayout>
