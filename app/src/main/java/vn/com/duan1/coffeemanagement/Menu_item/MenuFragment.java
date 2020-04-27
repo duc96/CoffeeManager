@@ -103,17 +103,14 @@ public class MenuFragment extends Fragment {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPagerMenu.setCurrentItem(tabLayoutMenu.getSelectedTabPosition());
-
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
             }
         });
 
@@ -134,11 +131,13 @@ public class MenuFragment extends Fragment {
             }
         });
 
+        //an button Add khi dang nhap la nhan vien
         if (idAfterLogin.substring(0, 2).equals("nv")) {
             flAdd.setEnabled(false);
             flAdd.setVisibility(View.GONE);
         } else {
 
+            // set su kien cho button dang nhap
             flAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -160,9 +159,9 @@ public class MenuFragment extends Fragment {
                         }
                     }
 
-                    System.out.println("drinks: " + drinks.size());
-                    System.out.println("foods: " + foods.size());
-                    System.out.println("khacs: " + khacs.size());
+//                    System.out.println("drinks: " + drinks.size());
+//                    System.out.println("foods: " + foods.size());
+//                    System.out.println("khacs: " + khacs.size());
 
                     // lay loai cho san pham
                     if (tabLayoutMenu.getSelectedTabPosition() == 0) {
@@ -218,19 +217,21 @@ public class MenuFragment extends Fragment {
 
 //                    final ImageView ivPhoto = viewdialog.findViewById(R.id.ivPhoto);
 
+                    // map cac thanh phan cua dialog add
                     final EditText edtItemLinkImage = viewdialog.findViewById(R.id.edtChonLinkAnh);
                     final ImageView imvAnh = viewdialog.findViewById(R.id.imvAnh);
                     final Button btnKiemTra = viewdialog.findViewById(R.id.btnCheck);
                     final EditText edtItemName = viewdialog.findViewById(R.id.edtItemName);
                     final EditText edtItemPrice = viewdialog.findViewById(R.id.edtItemPrice);
 
+                    // set su kien cho nut kiem tra link anh san pham
                     btnKiemTra.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            if (edtItemLinkImage.getText().toString().equals("")){
+                            if (edtItemLinkImage.getText().toString().equals("")) {
                                 nonUI = new NonUI(getContext());
                                 nonUI.toast("Bạn chưa nhập link hình ảnh");
-                            }else{
+                            } else {
                                 Picasso.with(getContext()).load(edtItemLinkImage.getText().toString()).into(imvAnh);
                             }
 
@@ -295,7 +296,8 @@ public class MenuFragment extends Fragment {
 
 //                            sanPhamDAO.themSanPham(new SanPham(maSP, loai, ImageAdapter.id_image, Name, Integer.parseInt(Price)));
 
-                            sanPhamDAO.themSanPham(new SanPham(maSP,loai,linkAnh,Name,Integer.parseInt(Price)));
+                            // them san pham
+                            sanPhamDAO.themSanPham(new SanPham(maSP, loai, linkAnh, Name, Integer.parseInt(Price)));
                         }
                     });
 
@@ -312,49 +314,54 @@ public class MenuFragment extends Fragment {
 
         }
 
+        // set su kien cho button gio hang
         flCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                View view1 = LayoutInflater.from(getContext()).inflate(R.layout.dialog_cart,null);
+                View view1 = LayoutInflater.from(getContext()).inflate(R.layout.dialog_cart, null);
 
+                // map cac thanh phan cua dialog gio hang
                 final TextView maHD = view1.findViewById(R.id.tv_ma_hd);
                 TextView total = view1.findViewById(R.id.tv_total);
                 ListView lv = view1.findViewById(R.id.lv_cart_hdct);
                 final TextView ngaylaphd = view1.findViewById(R.id.tv_ngay_lap_hd);
                 final TextView nguoilaphd = view1.findViewById(R.id.tv_nguoi_lap_hd);
 
-                ListViewCartAdapter listViewCartAdapter = new ListViewCartAdapter(getContext(),hdcts);
+                ListViewCartAdapter listViewCartAdapter = new ListViewCartAdapter(getContext(), hdcts);
                 lv.setAdapter(listViewCartAdapter);
                 listViewCartAdapter.notifyDataSetChanged();
 
+                //lay tong tien cua hoa don
                 int tong = 0;
-                for (int i = 0; i < hdcts.size(); i++){
+                for (int i = 0; i < hdcts.size(); i++) {
                     tong += hdcts.get(i).getTongtien();
                 }
 
-                total.setText(tong+"");
+                total.setText(tong + "");
 
+                //lay ngay hien tai
                 DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 Calendar cal = Calendar.getInstance();
                 String s = dateFormat.format(cal.getTime());
 
                 ngaylaphd.setText(s);
                 String name = "null";
-                for (int i = 0; i < nguoiDungs.size(); i++){
-                    if (idAfterLogin.equals(nguoiDungs.get(i).getUserID())){
+                for (int i = 0; i < nguoiDungs.size(); i++) {
+                    if (idAfterLogin.equals(nguoiDungs.get(i).getUserID())) {
                         name = nguoiDungs.get(i).getTen();
                     }
                 }
 
-                System.out.println(nguoiDungs);
+//                System.out.println(nguoiDungs);
                 nguoilaphd.setText(name);
 
+                // lay ma hoa don
                 int stt = 0;
                 String ma = "HD0";
-                for (int i = 0; i < hoaDons.size(); i++){
+                for (int i = 0; i < hoaDons.size(); i++) {
                     stt = hoaDons.size();
-                     ma = "HD" + stt;
+                    ma = "HD" + stt;
                 }
 
                 maHD.setText(ma);
@@ -365,26 +372,32 @@ public class MenuFragment extends Fragment {
                             public void onClick(DialogInterface dialog, int which) {
 
                                 HoaDonDAO hoaDonDAO = new HoaDonDAO(getContext());
-                                hoaDonDAO.insert(new HoaDon(maHD.getText().toString(),ngaylaphd.getText().toString(),nguoilaphd.getText().toString()));
+                                hoaDonDAO.insert(new HoaDon(maHD.getText().toString(), ngaylaphd.getText().toString(), nguoilaphd.getText().toString()));
 
                                 HoaDonChiTietDAO hoaDonChiTietDAO = new HoaDonChiTietDAO(getContext());
                                 String mahdct = "null";
                                 String mahd = "null";
                                 String masp = "null";
                                 int soluongmua;
-                                for (int i = 0; i < hdcts.size(); i++){
-                                    mahdct = "hdct"+i;
+                                for (int i = 0; i < hdcts.size(); i++) {
+                                    // lay ma hdct
+                                    mahdct = "hdct" + i;
+                                    //lay ma hoa don
                                     mahd = maHD.getText().toString();
-                                    for (int j = 0; j < sanPhamss.size(); j++){
-                                            if (hdcts.get(i).getTenSP().equals(sanPhamss.get(j).getTenSP())){
-                                                masp = sanPhamss.get(j).getMaSP();
-                                            }
+                                    // lay ma san pham
+                                    for (int j = 0; j < sanPhamss.size(); j++) {
+                                        if (hdcts.get(i).getTenSP().equals(sanPhamss.get(j).getTenSP())) {
+                                            masp = sanPhamss.get(j).getMaSP();
                                         }
+                                    }
+                                    //lay so luong mua
                                     soluongmua = hdcts.get(i).getSoLuongMua();
 
-                                    hoaDonChiTietDAO.insert(new HoaDonChiTiet(mahdct,mahd,masp,soluongmua));
+                                    // them moi hoa don chi tiet
+                                    hoaDonChiTietDAO.insert(new HoaDonChiTiet(mahdct, mahd, masp, soluongmua));
                                 }
 
+                                //sau khi xuat hoa don thi xoa danh sach hdct tam
                                 hdcts.clear();
 
 

@@ -71,12 +71,14 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
 //        holder.hinh.setImageResource(sp.getHinhSP());
         Picasso.with(context).load(sp.getHinhSP()).into(holder.hinh);
 
+        // an imageview Delete tren giao dien khi dang nhap la nhan vien
         if (idAfterLogin.substring(0, 2).equals("nv")) {
             holder.iv_xoa.setEnabled(false);
             holder.iv_xoa.setVisibility(View.GONE);
 
         } else {
 
+            // set su kien Click cho imageview Delete
             holder.iv_xoa.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -86,6 +88,7 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
                             .setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
+                                    // Delete san pham va cap nhat lai giao dien
                                     sanPhamDAO.xoaSanPham(sp);
                                     sanPhams.remove(sp);
                                     notifyDataSetChanged();
@@ -101,6 +104,7 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
                 }
             });
 
+            // set su kien longClick cho 1 cardView tren giao dien (cap nhat san pham)
             holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
@@ -108,20 +112,24 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
                     AlertDialog.Builder builder = new AlertDialog.Builder(context);
                     final View view = LayoutInflater.from(context).inflate(R.layout.dialog_update_menu, null);
 
+                    //map cac thanh phan co trong giao dien cua cardview
                     final EditText edtUpdateAnh = view.findViewById(R.id.edtUpdateLinkAnh);
                     final ImageView ivPhoto = view.findViewById(R.id.imvUpdateAnh);
                     final EditText edtItemName = view.findViewById(R.id.edtUpdateItemName);
                     final EditText edtItemPrice = view.findViewById(R.id.edtUpdateItemPrice);
                     final Button btnUpdateCheck = view.findViewById(R.id.btnUpdateCheck);
 
+                    //gan du lieu len cardview
                     edtUpdateAnh.setHint(sp.getHinhSP());
                     Picasso.with(context).load(sp.getHinhSP()).into(ivPhoto);
                     edtItemName.setHint(sp.getTenSP());
                     edtItemPrice.setHint(sp.getGiaSP() + "");
 
+                    //set su kien cho button Update
                     btnUpdateCheck.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            // kiem tra da nhap link san pham chua
                             if (edtUpdateAnh.getText().toString().equals("")){
                                 nonUI = new NonUI(context);
                                 nonUI.toast("Bạn chưa nhập link hình ảnh");
@@ -180,6 +188,7 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
 //                    });
 
                     builder.setView(view)
+                            //set su kien khi nhan nut cap nhat
                             .setPositiveButton("Cập nhật", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
@@ -202,6 +211,7 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
                                         Price = edtItemPrice.getHint().toString();
                                     }
 
+                                    //cap nhat san pham
                                     sanPhamDAO.capnhatSanPham(new SanPham(maSP, loai, hinh, Name, Integer.parseInt(Price)));
 //                                    sanPhamDAO.capnhatSanPham(new SanPham(maSP, loai, ImageAdapter.id_image, Name, Integer.parseInt(Price)));
                                 }
@@ -220,6 +230,7 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
             });
         }
 
+        // set su kien onClick cho cardview
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -237,6 +248,7 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
                 ten.setText(sp.getTenSP());
                 soluong.setText("1");
 
+                //giam so luong
                 minus.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -247,6 +259,7 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
                     }
                 });
 
+                //tang so luong
                 plus.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -255,6 +268,7 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
                     }
                 });
 
+                //tao dialog chon mon
                 builder.setTitle("Chọn món này nhé !")
                         .setView(mv)
                         .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -267,9 +281,10 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
                                 int tongtien = sp.getGiaSP() * soluongmua;
 
                                 CartHDCT cartHDCT = new CartHDCT(tensp,soluongmua,tongtien);
+                                //add san pham vao gio hang
                                 hdcts.add(cartHDCT);
 
-                                System.out.println("stt"+ hdcts);
+//                                System.out.println("stt"+ hdcts);
 
                             }
                         })
